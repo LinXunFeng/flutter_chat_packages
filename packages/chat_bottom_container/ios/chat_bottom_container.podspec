@@ -14,6 +14,7 @@ A new Flutter plugin project.
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
+  s.vendored_frameworks = 'Frameworks/FSAChatBottomContainer.xcframework'
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 

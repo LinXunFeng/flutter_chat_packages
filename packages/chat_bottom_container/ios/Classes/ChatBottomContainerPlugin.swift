@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import FSAChatBottomContainer
 
 public class ChatBottomContainerPlugin: NSObject, FlutterPlugin {
   static var hostApi: FSAChatBottomContainerHostApiImp?
@@ -20,5 +21,11 @@ public class ChatBottomContainerPlugin: NSObject, FlutterPlugin {
 extension FlutterError: Error {}
 
 class FSAChatBottomContainerHostApiImp: FSAChatBottomContainerHostApi {
-
+  var imp: FSAChatBottomContainer?
+  
+  init() {
+    imp = FSAChatBottomContainer(keyboardHeightBlock: { height in
+      ChatBottomContainerPlugin.flutterApi?.keyboardHeight(height: height, completion: { _ in })
+    })
+  }
 }
