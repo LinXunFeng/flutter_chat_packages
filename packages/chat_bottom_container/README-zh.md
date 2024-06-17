@@ -1,6 +1,6 @@
 # chat_bottom_container
 
-[![author](https://img.shields.io/badge/author-LinXunFeng-blue.svg?style=flat-square&logo=Iconify)](https://github.com/LinXunFeng/) [![pub](https://img.shields.io/pub/v/chat_bottom_container?&style=flat-square&label=pub&logo=dart)](https://pub.dev/packages/chat_bottom_container)
+[![author](https://img.shields.io/badge/author-LinXunFeng-blue.svg?style=flat-square&logo=Iconify)](https://github.com/LinXunFeng/) [![author](https://img.shields.io/badge/author-GitLqr-blue.svg?style=flat-square&logo=Iconify)](https://github.com/GitLqr/) [![pub](https://img.shields.io/pub/v/chat_bottom_container?&style=flat-square&label=pub&logo=dart)](https://pub.dev/packages/chat_bottom_container)
 
 Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages/blob/main/packages/chat_bottom_container)
 
@@ -35,6 +35,8 @@ import 'package:chat_bottom_container/chat_bottom_container.dart';
 ```
 
 ## 🚀 使用
+
+![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172255393.gif)
 
 整体页面布局
 
