@@ -8,7 +8,8 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse(
+    {Object? result, PlatformException? error, bool empty = false}) {
   if (empty) {
     return <Object?>[];
   }
@@ -26,26 +27,30 @@ class FSAChatBottomContainerHostApi {
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
-
+  static const MessageCodec<Object?> pigeonChannelCodec =
+      StandardMessageCodec();
 }
 
 abstract class FSAChatBottomContainerFlutterApi {
-  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec =
+      StandardMessageCodec();
 
   void keyboardHeight(double height);
 
-  static void setup(FSAChatBottomContainerFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
+  static void setup(FSAChatBottomContainerFlutterApi? api,
+      {BinaryMessenger? binaryMessenger}) {
     {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.chat_bottom_container.FSAChatBottomContainerFlutterApi.keyboardHeight', pigeonChannelCodec,
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.chat_bottom_container.FSAChatBottomContainerFlutterApi.keyboardHeight',
+          pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.chat_bottom_container.FSAChatBottomContainerFlutterApi.keyboardHeight was null.');
+              'Argument for dev.flutter.pigeon.chat_bottom_container.FSAChatBottomContainerFlutterApi.keyboardHeight was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final double? arg_height = (args[0] as double?);
           assert(arg_height != null,
@@ -55,8 +60,9 @@ abstract class FSAChatBottomContainerFlutterApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+                error: PlatformException(code: 'error', message: e.toString()));
           }
         });
       }
