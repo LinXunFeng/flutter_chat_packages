@@ -270,16 +270,18 @@ class _ChatKeyboardSafeAreaDataViewState
     extends State<ChatKeyboardSafeAreaDataView> {
   double safeAreaBottom = 0;
 
+  bool haveSetup = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (safeAreaBottom != 0) return;
+    if (haveSetup) return;
+    haveSetup = true;
     double bottom = MediaQuery.viewPaddingOf(context).bottom;
     if (bottom == 0) {
       bottom = MediaQuery.viewInsetsOf(context).bottom;
     }
-    if (bottom == 0) return;
     safeAreaBottom = bottom;
     widget.safeAreaBottom?.call(safeAreaBottom);
   }
