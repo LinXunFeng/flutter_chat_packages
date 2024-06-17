@@ -2,49 +2,47 @@
 
 [![author](https://img.shields.io/badge/author-LinXunFeng-blue.svg?style=flat-square&logo=Iconify)](https://github.com/LinXunFeng/) [![pub](https://img.shields.io/pub/v/chat_bottom_container?&style=flat-square&label=pub&logo=dart)](https://pub.dev/packages/chat_bottom_container)
 
-Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages/blob/main/packages/chat_bottom_container/README-zh.md)
+Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages/blob/main/packages/chat_bottom_container)
 
-This is a Flutter package for managing the bottom container of a chat page, which can be used to implement smooth switching between the keyboard and the other panel.
+这是一个用来管理聊天页底部视图容器的Flutter组件库，可用来实现丝滑切换键盘与其它面板的功能。
 
-Chat: [Join WeChat group](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
+微信技术交流群请看: [【微信群说明】](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
 
-
-## ☕ Support me
+## ☕ 请我喝一杯咖啡
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T4JKVRP)
 
-The WeChat payment QR codes of the two core authors, thank you for your support!
+两位核心作者的微信收款码，感谢支持！
 
 |[LinXunFeng](https://github.com/LinXunFeng)|[GitLqr](https://github.com/GitLqr)|
 |-|-|
 |<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20220417121922/image/202303181116760.jpeg"/>|<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172130257.jpg"/>|
 
 
-## 📦 Installing
+## 📦 安装
 
-Add `chat_bottom_container` to your pubspec.yaml file:
-
+在你的 `pubspec.yaml` 文件中添加 `chat_bottom_container` 依赖:
 
 ```yaml
 dependencies:
   chat_bottom_container: latest_version
 ```
 
-Import `chat_bottom_container` in files that it will be used:
+在需要使用的地方导入 `chat_bottom_container` :
 
 ```dart
 import 'package:chat_bottom_container/chat_bottom_container.dart';
 ```
 
-## 🚀 Usage
+## 🚀 使用
 
-Overall page layout
+整体页面布局
 
 ```dart
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    // Need to be set to false
+    // 设置为 false
     resizeToAvoidBottomInset: false,
     body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -54,9 +52,9 @@ Widget build(BuildContext context) {
             ...
           ),
         ),
-        // Input box view
+        // 输入框视图
         _buildInputView(),
-        // Bottom container
+        // 底部容器
         _buildPanelContainer(),
       ],
     ),
@@ -64,10 +62,10 @@ Widget build(BuildContext context) {
 }
 ```
 
-Bottom container
+底部视图
 
 ```dart
-/// Custom bottom panel type
+/// 自定义底部面板类型
 enum PanelType {
   none,
   keyboard,
@@ -84,7 +82,7 @@ Widget _buildPanelContainer() {
     controller: controller,
     inputFocusNode: inputFocusNode,
     otherPanelWidget: (type) {
-      // Return the custom panel view
+      // 返回自定义的面板视图
       if (type == null) return const SizedBox.shrink();
       switch (type) {
         case PanelType.emoji:
@@ -96,7 +94,7 @@ Widget _buildPanelContainer() {
       }
     },
     onPanelTypeChange: (panelType, data) {
-      // Record the current panel type
+      // 记录当前的面板类型
       switch (panelType) {
         case ChatBottomPanelType.none:
           currentPanelType = PanelType.none;
@@ -125,19 +123,19 @@ Widget _buildPanelContainer() {
 }
 ```
 
-Toggle bottom panel type
+切换底部面板类型
 
 ```dart
 controller.updatePanelType(
-  // Set the current bottom panel type of ChatBottomPanelContainer
-  // Only accepts ChatBottomPanelType.keyboard and ChatBottomPanelType.other
+  // 设置 ChatBottomPanelContainer 当前的底部面板类型
+  // 只接收 ChatBottomPanelType.keyboard 和 ChatBottomPanelType.other
   ChatBottomPanelType.other,
-  // Callback to the PanelType value, passed in when ChatBottomPanelType.other
+  // 回调给外部开发者自定义的 PanelType，当 ChatBottomPanelType.other 时传入
   data: PanelType.emoji, // PanelType.tool
 );
 ```
 
-## 🖨 About Me
+## 🖨 关于我
 
 - GitHub: [https://github.com/LinXunFeng](https://github.com/LinXunFeng)
 - Email: [linxunfeng@yeah.net](mailto:linxunfeng@yeah.net)
