@@ -76,6 +76,7 @@ enum PanelType {
 ChatBottomPanelContainerController<PanelType> controller =
       ChatBottomPanelContainerController<PanelType>();
 final FocusNode inputFocusNode = FocusNode();
+PanelType currentPanelType = PanelType.none;
 
 Widget _buildPanelContainer() {
   return ChatBottomPanelContainer<PanelType>(

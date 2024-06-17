@@ -38,7 +38,7 @@ import 'package:chat_bottom_container/chat_bottom_container.dart';
 
 ## 🚀 Usage
 
-Overall page layout
+Overall page layout.
 
 ```dart
 @override
@@ -64,7 +64,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-Bottom container
+Bottom container.
 
 ```dart
 /// Custom bottom panel type
@@ -78,6 +78,7 @@ enum PanelType {
 ChatBottomPanelContainerController<PanelType> controller =
       ChatBottomPanelContainerController<PanelType>();
 final FocusNode inputFocusNode = FocusNode();
+PanelType currentPanelType = PanelType.none;
 
 Widget _buildPanelContainer() {
   return ChatBottomPanelContainer<PanelType>(
@@ -125,7 +126,7 @@ Widget _buildPanelContainer() {
 }
 ```
 
-Toggle bottom panel type
+Toggle bottom panel type.
 
 ```dart
 controller.updatePanelType(
