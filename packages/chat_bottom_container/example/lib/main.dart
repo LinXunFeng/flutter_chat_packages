@@ -53,6 +53,8 @@ class _HomeState extends State<Home> {
         children: [
           Expanded(
             child: ListView.builder(
+              padding: EdgeInsets.zero,
+              reverse: true,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text('Item $index'),
