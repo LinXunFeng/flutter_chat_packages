@@ -1,3 +1,9 @@
+/*
+ * @Author: LinXunFeng linxunfeng@yeah.net
+ * @Repo: https://github.com/LinXunFeng/flutter_chat_packages
+ * @Date: 2024-06-16 11:10:28
+ */
+
 import 'dart:math';
 
 import 'package:chat_bottom_container/plugin/pigeon.g.dart';

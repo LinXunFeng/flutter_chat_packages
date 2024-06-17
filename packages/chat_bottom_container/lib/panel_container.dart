@@ -1,3 +1,9 @@
+/*
+ * @Author: LinXunFeng linxunfeng@yeah.net
+ * @Repo: https://github.com/LinXunFeng/flutter_chat_packages
+ * @Date: 2024-06-17 22:25:15
+ */
+
 import 'package:chat_bottom_container/listener_manager.dart';
 import 'package:flutter/material.dart';
 
