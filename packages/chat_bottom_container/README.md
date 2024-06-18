@@ -133,9 +133,9 @@ Toggle bottom panel type.
 ```dart
 controller.updatePanelType(
   // Set the current bottom panel type of ChatBottomPanelContainer
-  // Only accepts ChatBottomPanelType.keyboard and ChatBottomPanelType.other
+  // Can be passed to ChatBottomPanelType.keyboard | ChatBottomPanelType.other | ChatBottomPanelType.none
   ChatBottomPanelType.other,
-  // Callback to the PanelType value, passed in when ChatBottomPanelType.other
+  // Callback the PanelType value customized by developer, must be passed when ChatBottomPanelType.other
   data: PanelType.emoji, // PanelType.tool
 );
 ```

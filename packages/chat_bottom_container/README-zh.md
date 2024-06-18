@@ -131,9 +131,9 @@ Widget _buildPanelContainer() {
 ```dart
 controller.updatePanelType(
   // 设置 ChatBottomPanelContainer 当前的底部面板类型
-  // 只接收 ChatBottomPanelType.keyboard 和 ChatBottomPanelType.other
+  // 可传入 ChatBottomPanelType.keyboard | ChatBottomPanelType.other | ChatBottomPanelType.none
   ChatBottomPanelType.other,
-  // 回调给外部开发者自定义的 PanelType，当 ChatBottomPanelType.other 时传入
+  // 外部开发者自定义的 PanelType 类型，当 ChatBottomPanelType.other 时必传
   data: PanelType.emoji, // PanelType.tool
 );
 ```
