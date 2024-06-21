@@ -1,7 +1,0 @@
-configurations.maybeCreate("default")
-//artifacts.add("default", file('lib.aar'))
-fileTree("./").each {
-    if (it.path.endsWith(".aar")) {
-        artifacts.add("default", it)
-    }
-}

@@ -24,4 +24,3 @@ plugins {
 }
 
 include ":app"
-include ":chat_bottom_container:chat_bottom_container"

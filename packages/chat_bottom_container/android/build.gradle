@@ -1,5 +1,3 @@
-initFsaLibrary()
-
 group 'com.fsa.chat_bottom_container'
 version '1.0-SNAPSHOT'
 
@@ -20,6 +18,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -55,7 +54,7 @@ android {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
         // implementation fileTree(dir: "flatDir", include: ["*.aar"])
-        implementation project(':chat_bottom_container:chat_bottom_container')
+        implementation "com.github.LinXunFeng:flutter_chat_bottom_container_aar:0.0.1"
     }
 
     testOptions {
@@ -67,35 +66,6 @@ android {
                 outputs.upToDateWhen { false }
                 showStandardStreams = true
             }
-        }
-    }
-}
-
-def initFsaLibrary() {
-    def archives = [
-            [
-                    'src' : 'https://github.com/LinXunFeng/flutter_chat_packages_pub/releases/download/chat_bottom_container/android_release_0.0.1.aar',
-                    'dest': "${rootProject.file("../../android/chat_bottom_container").path}"
-            ]
-    ]
-    archives.eachWithIndex { archive, index ->
-        def url = archive.src
-        def fileName = url.substring(url.lastIndexOf('/') + 1, url.length())
-        def destFile = file("${archive.dest}/${fileName}")
-        if (!destFile.parentFile.exists()) {
-            destFile.parentFile.mkdirs()
-        }
-        if (!destFile.exists()) {
-            // del *.aar in archive dir
-            destFile.parentFile.listFiles().each {
-                if (it.path.endsWith(".aar")) {
-                    println "Delete ${it.path}"
-                    it.delete()
-                }
-            }
-            // download new .arr file
-            println "Download ${fileName} to ${destFile}"
-            ant.get(src: url, dest: destFile)
         }
     }
 }
