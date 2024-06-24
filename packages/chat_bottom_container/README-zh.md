@@ -18,6 +18,9 @@ Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages
 |-|-|
 |<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20220417121922/image/202303181116760.jpeg"/>|<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172130257.jpg"/>|
 
+## 🎀 支持
+- iOS
+- Android
 
 ## 📦 安装
 
@@ -32,6 +35,19 @@ dependencies:
 
 ```dart
 import 'package:chat_bottom_container/chat_bottom_container.dart';
+```
+
+### 🤖 Android
+
+添加 `jitpack` 仓库到你的项目根目录下的 `build.gradle` 文件中:
+
+```gradle
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
 ```
 
 ## 🚀 使用
@@ -75,8 +91,7 @@ enum PanelType {
   tool,
 }
 
-ChatBottomPanelContainerController<PanelType> controller =
-      ChatBottomPanelContainerController<PanelType>();
+final controller = ChatBottomPanelContainerController<PanelType>();
 final FocusNode inputFocusNode = FocusNode();
 PanelType currentPanelType = PanelType.none;
 

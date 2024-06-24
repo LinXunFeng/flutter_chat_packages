@@ -19,6 +19,9 @@ The WeChat payment QR codes of the two core authors, thank you for your support!
 |-|-|
 |<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20220417121922/image/202303181116760.jpeg"/>|<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172130257.jpg"/>|
 
+## 🎀 Support
+- iOS
+- Android
 
 ## 📦 Installing
 
@@ -34,6 +37,19 @@ Import `chat_bottom_container` in files that it will be used:
 
 ```dart
 import 'package:chat_bottom_container/chat_bottom_container.dart';
+```
+
+### 🤖 Android
+
+Add `jitpack` to the root `build.gradle` file of your project at the end of repositories.
+
+```gradle
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
 ```
 
 ## 🚀 Usage
@@ -77,8 +93,7 @@ enum PanelType {
   tool,
 }
 
-ChatBottomPanelContainerController<PanelType> controller =
-      ChatBottomPanelContainerController<PanelType>();
+final controller = ChatBottomPanelContainerController<PanelType>();
 final FocusNode inputFocusNode = FocusNode();
 PanelType currentPanelType = PanelType.none;
 
