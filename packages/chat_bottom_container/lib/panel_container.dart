@@ -48,6 +48,7 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
     required this.otherPanelWidget,
     this.onPanelTypeChange,
     this.panelBgColor = Colors.white,
+    this.listenCallType = ChatBottomContainerListenCallType.active,
   });
 
   final ChatBottomPanelContainerController<T> controller;
@@ -59,6 +60,8 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
   final void Function(ChatBottomPanelType, T? data)? onPanelTypeChange;
 
   final Color panelBgColor;
+
+  final ChatBottomContainerListenCallType listenCallType;
 
   @override
   State<ChatBottomPanelContainer> createState() =>
@@ -88,6 +91,7 @@ class _ChatBottomPanelContainerState<T>
     widget.controller._attachState(this);
     chatKeyboardManagerId = ChatBottomContainerListenerManager().register(
       onKeyboardHeightChange,
+      callType: widget.listenCallType,
     );
 
     inputFocusNode.addListener(() {

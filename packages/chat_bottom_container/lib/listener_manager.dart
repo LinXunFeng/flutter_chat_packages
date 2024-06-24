@@ -8,12 +8,19 @@ import 'dart:math';
 
 import 'package:chat_bottom_container/plugin/pigeon.g.dart';
 
+enum ChatBottomContainerListenCallType {
+  active,
+  always,
+}
+
 typedef ChatKeyboardOnKeyboardHeightChange = Function(double);
 
 class ChatBottomContainerListenerManager {
   List<String> pageIdStack = [];
 
   Map<String, ChatKeyboardOnKeyboardHeightChange> pageIdMap = {};
+
+  List<String> alwaysCallPageIdStack = [];
 
   final hostApi = FSAChatBottomContainerHostApi();
 
@@ -33,19 +40,32 @@ class ChatBottomContainerListenerManager {
   _init() {
     flutterApi = FSAChatBottomContainerFlutterApiImp(
       onKeyboardHeight: (height) {
+        Map<String, bool> recordMap = {};
+        for (var id in alwaysCallPageIdStack.reversed) {
+          pageIdMap[id]?.call(height);
+          recordMap[id] = true;
+        }
         if (pageIdStack.isEmpty) return;
-        pageIdMap[pageIdStack.last]?.call(height);
+        final activePageId = pageIdStack.last;
+        if (recordMap[activePageId] == null) {
+          pageIdMap[activePageId]?.call(height);
+        }
       },
     );
     FSAChatBottomContainerFlutterApi.setup(flutterApi);
   }
 
   String register(
-    ChatKeyboardOnKeyboardHeightChange onKeyboardHeightChange,
-  ) {
+    ChatKeyboardOnKeyboardHeightChange onKeyboardHeightChange, {
+    ChatBottomContainerListenCallType callType =
+        ChatBottomContainerListenCallType.active,
+  }) {
     final id = _uniqueId();
     pageIdStack.add(id);
     pageIdMap[id] = onKeyboardHeightChange;
+    if (callType == ChatBottomContainerListenCallType.always) {
+      alwaysCallPageIdStack.add(id);
+    }
     return id;
   }
 
@@ -61,6 +81,7 @@ class ChatBottomContainerListenerManager {
       }
     }
     pageIdMap.remove(id);
+    alwaysCallPageIdStack.remove(id);
   }
 
   String _uniqueId() {
