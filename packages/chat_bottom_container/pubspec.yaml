@@ -5,7 +5,7 @@ repository: https://github.com/LinXunFeng/flutter_chat_packages/tree/main/packag
 issue_tracker: https://github.com/LinXunFeng/flutter_chat_packages/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+chat_bottom_container%22
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.3.0"
 
 dependencies:
