@@ -9,8 +9,15 @@ import 'dart:math';
 import 'package:chat_bottom_container/plugin/pigeon.g.dart';
 
 enum ChatBottomContainerListenCallType {
-  active,
-  always,
+  /// It will only be called when it is at the top of the stack.
+  stackTop,
+
+  /// It will be pushed onto the stack, but it will be called regardless of
+  /// whether it is at the top of the stack.
+  alwaysAndStack,
+
+  /// It will not be pushed onto the stack, and it will always be called.
+  alwaysAndUnstack,
 }
 
 typedef ChatKeyboardOnKeyboardHeightChange = Function(double);
@@ -41,14 +48,17 @@ class ChatBottomContainerListenerManager {
     flutterApi = FSAChatBottomContainerFlutterApiImp(
       onKeyboardHeight: (height) {
         Map<String, bool> recordMap = {};
+        // Prioritize [pageIdStack]
+        if (pageIdStack.isNotEmpty) {
+          final activePageId = pageIdStack.last;
+          pageIdMap[activePageId]?.call(height);
+          recordMap[activePageId] = true;
+        }
+
         for (var id in alwaysCallPageIdStack.reversed) {
+          if (recordMap[id] == true) continue;
           pageIdMap[id]?.call(height);
           recordMap[id] = true;
-        }
-        if (pageIdStack.isEmpty) return;
-        final activePageId = pageIdStack.last;
-        if (recordMap[activePageId] == null) {
-          pageIdMap[activePageId]?.call(height);
         }
       },
     );
@@ -58,13 +68,21 @@ class ChatBottomContainerListenerManager {
   String register(
     ChatKeyboardOnKeyboardHeightChange onKeyboardHeightChange, {
     ChatBottomContainerListenCallType callType =
-        ChatBottomContainerListenCallType.active,
+        ChatBottomContainerListenCallType.stackTop,
   }) {
     final id = _uniqueId();
-    pageIdStack.add(id);
     pageIdMap[id] = onKeyboardHeightChange;
-    if (callType == ChatBottomContainerListenCallType.always) {
-      alwaysCallPageIdStack.add(id);
+    switch (callType) {
+      case ChatBottomContainerListenCallType.stackTop:
+        pageIdStack.add(id);
+        break;
+      case ChatBottomContainerListenCallType.alwaysAndStack:
+        pageIdStack.add(id);
+        alwaysCallPageIdStack.add(id);
+        break;
+      case ChatBottomContainerListenCallType.alwaysAndUnstack:
+        alwaysCallPageIdStack.add(id);
+        break;
     }
     return id;
   }

@@ -48,7 +48,7 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
     required this.otherPanelWidget,
     this.onPanelTypeChange,
     this.panelBgColor = Colors.white,
-    this.listenCallType = ChatBottomContainerListenCallType.active,
+    this.listenCallType = ChatBottomContainerListenCallType.stackTop,
   });
 
   final ChatBottomPanelContainerController<T> controller;
