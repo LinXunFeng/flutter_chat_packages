@@ -212,10 +212,6 @@ class _ChatBottomPanelContainerState<T>
   }
 
   void onKeyboardHeightChange(double height) {
-    if (height == 0) {
-      widget.inputFocusNode.unfocus();
-      return;
-    }
     currentNativeKeyboardHeight = height;
     if (ChatBottomPanelType.keyboard == panelType) {
       isSwitchHeightInKeyboard = true;
