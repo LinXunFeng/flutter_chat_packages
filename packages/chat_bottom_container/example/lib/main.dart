@@ -39,8 +39,7 @@ class _HomeState extends State<Home> {
 
   final FocusNode inputFocusNode = FocusNode();
 
-  ChatBottomPanelContainerController<PanelType> controller =
-      ChatBottomPanelContainerController<PanelType>();
+  final controller = ChatBottomPanelContainerController<PanelType>();
 
   PanelType currentPanelType = PanelType.none;
 
