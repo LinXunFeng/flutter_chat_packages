@@ -75,6 +75,8 @@ class _ChatBottomPanelContainerState<T>
   ChatBottomPanelType lastPanelType = ChatBottomPanelType.none;
   ChatBottomPanelType panelType = ChatBottomPanelType.none;
 
+  bool isStillKeyboardType = false;
+
   bool isIgnoreFocusChange = false;
 
   double currentNativeKeyboardHeight = 0;
@@ -131,8 +133,10 @@ class _ChatBottomPanelContainerState<T>
           left: 0,
           bottom: 0,
           child: ChatKeyboardSafeAreaDataView(
-            safeAreaBottom: (value) {
+            safeAreaBottom: (value) async {
               safeAreaBottom = value;
+              await WidgetsBinding.instance.endOfFrame;
+              setState(() {});
             },
           ),
         ),
@@ -213,7 +217,7 @@ class _ChatBottomPanelContainerState<T>
 
   void onKeyboardHeightChange(double height) {
     currentNativeKeyboardHeight = height;
-    if (ChatBottomPanelType.keyboard == panelType) {
+    if (ChatBottomPanelType.keyboard == panelType && isStillKeyboardType) {
       isSwitchHeightInKeyboard = true;
     }
     setState(() {});
@@ -230,13 +234,21 @@ class _ChatBottomPanelContainerState<T>
     switch (type) {
       case ChatBottomPanelType.none:
         needUnFocus = true;
+        isStillKeyboardType = false;
         break;
       case ChatBottomPanelType.keyboard:
         needUnFocus = false;
         widget.inputFocusNode.requestFocus();
+        // Wait until the keyboard pops up before setting [isStillKeyboardType]
+        // to true.
+        Future.delayed(const Duration(milliseconds: 200)).then((_) {
+          if (ChatBottomPanelType.keyboard != panelType) return;
+          isStillKeyboardType = true;
+        });
         break;
       case ChatBottomPanelType.other:
         needUnFocus = true;
+        isStillKeyboardType = false;
         break;
     }
     lastPanelType = panelType;
