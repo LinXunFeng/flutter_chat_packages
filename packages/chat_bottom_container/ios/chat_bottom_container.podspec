@@ -18,7 +18,7 @@ A new Flutter plugin project.
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
   s.prepare_command = <<-CMD
-    VERSION=#{s.version}
+    VERSION="0.0.1"
     IOS_FRAMEWORK_PATH=Frameworks
     IOS_ZIP=ios_${VERSION}.zip
     IOS_ZIP_PATH=$IOS_FRAMEWORK_PATH/$IOS_ZIP
