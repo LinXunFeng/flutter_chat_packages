@@ -5,7 +5,6 @@
  */
 
 import 'package:chat_bottom_container_example/chat_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -134,7 +133,7 @@ class _HomePageState extends State<HomePage>
               isScrollControlled: true,
               builder: (context) {
                 return const FractionallySizedBox(
-                  heightFactor: 0.9,
+                  heightFactor: 0.8,
                   child: ChatPage(),
                 );
               },
