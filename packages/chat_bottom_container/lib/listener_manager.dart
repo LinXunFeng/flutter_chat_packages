@@ -34,8 +34,8 @@ class ChatBottomContainerListenerManager {
         // Full call, but only the input box that has gained focus can handle
         // the subsequent keyboard height change logic.
         // See [_ChatBottomPanelContainerState.onKeyboardHeightChange].
-        pageIdMap.forEach((key, value) {
-          value.call(height);
+        pageIdMap.keys.toList().reversed.forEach((key) {
+          pageIdMap[key]?.call(height);
         });
       },
     );
