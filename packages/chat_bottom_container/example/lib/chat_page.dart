@@ -77,11 +77,10 @@ class _ChatPageState extends State<ChatPage> {
         );
       },
     );
-    resultWidget = GestureDetector(
-      behavior: HitTestBehavior.translucent,
+    resultWidget = Listener(
       child: resultWidget,
-      onTapDown: (details) {
-        // Hide the panel when the ListView is touched.
+      onPointerDown: (event) {
+        // Hide panel when touch ListView.
         hidePanel();
       },
     );
