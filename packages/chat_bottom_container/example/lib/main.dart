@@ -9,13 +9,20 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
+class App {
+  static final routeObserver = RouteObserver<ModalRoute>();
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      navigatorObservers: [
+        App.routeObserver,
+      ],
+      home: const HomePage(),
     );
   }
 }

@@ -5,6 +5,7 @@
  */
 
 import 'package:chat_bottom_container/panel_container.dart';
+import 'package:chat_bottom_container_example/main.dart';
 import 'package:flutter/material.dart';
 
 enum PanelType {
@@ -32,7 +33,7 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with RouteAware {
   Color panelBgColor = const Color(0xFFF5F5F5);
 
   final FocusNode inputFocusNode = FocusNode();
@@ -42,9 +43,22 @@ class _ChatPageState extends State<ChatPage> {
   PanelType currentPanelType = PanelType.none;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    App.routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
   void dispose() {
     inputFocusNode.dispose();
+    App.routeObserver.unsubscribe(this);
     super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    super.didPushNext();
+    hidePanel();
   }
 
   @override
