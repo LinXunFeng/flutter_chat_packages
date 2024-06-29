@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  chat_bottom_container: 78144ab7711d932c482e6991cb4a6748a1671c83
+  chat_bottom_container: d8b077152c91b0ab90001e900748ea50353a5520
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 13825b8a9334a850581300559b8839134b124670
 

@@ -155,6 +155,51 @@ controller.updatePanelType(
 );
 ```
 
+---
+
+<details>
+  <summary>Here are some additional features and instructions</summary>
+
+### Hide Panel
+
+```dart
+hidePanel() {
+  inputFocusNode.unfocus();
+  if (ChatBottomPanelType.none == controller.currentPanelType) return;
+  controller.updatePanelType(ChatBottomPanelType.none);
+}
+```
+
+### Customize bottom safe area height
+
+By default, `chat_bottom_container` will automatically add the bottom safe area height for you, but in some scenarios you may not want this, you can customize this height by setting `safeAreaBottom` to `0`.
+
+```dart
+return ChatBottomPanelContainer<PanelType>(
+  ...
+  safeAreaBottom: 0,
+  ...
+);
+```
+
+### Adjust the keyboard panel height
+
+For example, in the chat page on the home page, the height of the fixed `BottomNavigationBar` at the bottom of the outer layer needs to be subtracted.
+
+```dart
+return ChatBottomPanelContainer<PanelType>(
+  ...
+  changeKeyboardPanelHeight: (keyboardHeight) {
+    final renderObj = bottomNavigationBarKey.currentContext?.findRenderObject();
+    if (renderObj is! RenderBox) return keyboardHeight;
+    return keyboardHeight - renderObj.size.height;
+  },
+  ...
+);
+```
+
+</details>
+
 ## 🖨 About Me
 
 - GitHub: [https://github.com/LinXunFeng](https://github.com/LinXunFeng)

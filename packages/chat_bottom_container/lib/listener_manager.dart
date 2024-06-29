@@ -11,8 +11,6 @@ import 'package:chat_bottom_container/plugin/pigeon.g.dart';
 typedef ChatKeyboardOnKeyboardHeightChange = Function(double);
 
 class ChatBottomContainerListenerManager {
-  List<String> pageIdStack = [];
-
   Map<String, ChatKeyboardOnKeyboardHeightChange> pageIdMap = {};
 
   final hostApi = FSAChatBottomContainerHostApi();
@@ -33,8 +31,12 @@ class ChatBottomContainerListenerManager {
   _init() {
     flutterApi = FSAChatBottomContainerFlutterApiImp(
       onKeyboardHeight: (height) {
-        if (pageIdStack.isEmpty) return;
-        pageIdMap[pageIdStack.last]?.call(height);
+        // Full call, but only the input box that has gained focus can handle
+        // the subsequent keyboard height change logic.
+        // See [_ChatBottomPanelContainerState.onKeyboardHeightChange].
+        pageIdMap.keys.toList().reversed.forEach((key) {
+          pageIdMap[key]?.call(height);
+        });
       },
     );
     FSAChatBottomContainerFlutterApi.setup(flutterApi);
@@ -44,22 +46,11 @@ class ChatBottomContainerListenerManager {
     ChatKeyboardOnKeyboardHeightChange onKeyboardHeightChange,
   ) {
     final id = _uniqueId();
-    pageIdStack.add(id);
     pageIdMap[id] = onKeyboardHeightChange;
     return id;
   }
 
   void unregister(String id) {
-    if (pageIdStack.isNotEmpty) {
-      if (pageIdStack.last == id) {
-        pageIdStack.removeLast();
-      } else {
-        final index = pageIdStack.lastIndexOf(id);
-        if (index != -1) {
-          pageIdStack.removeAt(index);
-        }
-      }
-    }
     pageIdMap.remove(id);
   }
 
