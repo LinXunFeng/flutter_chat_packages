@@ -138,8 +138,10 @@ class _ChatBottomPanelContainerState<T>
             left: 0,
             bottom: 0,
             child: ChatKeyboardSafeAreaDataView(
-              safeAreaBottom: (value) {
+              safeAreaBottom: (value) async {
                 safeAreaBottom = value;
+                await WidgetsBinding.instance.endOfFrame;
+                setState(() {});
               },
             ),
           ),
@@ -216,7 +218,7 @@ class _ChatBottomPanelContainerState<T>
           height = MediaQuery.viewInsetsOf(context).bottom;
         }
 
-        // The height of the keyboard container can be adjusted by user.
+        // The height of the keyboard container can be adjusted by developer.
         height = widget.changeKeyboardPanelHeight?.call(height) ?? height;
 
         // To prevent jitter.
@@ -335,12 +337,12 @@ class _ChatKeyboardSafeAreaDataViewState
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (haveSetup) return;
+    // On some Android devices, when the keyboard is displayed and push the
+    // next page, the viewPadding.bottom changes twice, the first time is 0,
+    // the second time is non-0 and the second time it is the correct value.
+    if (haveSetup && safeAreaBottom != 0) return;
     haveSetup = true;
     double bottom = MediaQuery.viewPaddingOf(context).bottom;
-    if (bottom == 0) {
-      bottom = MediaQuery.viewInsetsOf(context).bottom;
-    }
     safeAreaBottom = bottom;
     widget.safeAreaBottom?.call(safeAreaBottom);
   }
