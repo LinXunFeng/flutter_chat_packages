@@ -153,6 +153,51 @@ controller.updatePanelType(
 );
 ```
 
+---
+
+<details>
+  <summary>下面再提供一些额外的功能与说明</summary>
+
+### 隐藏面板
+
+```dart
+hidePanel() {
+  inputFocusNode.unfocus();
+  if (ChatBottomPanelType.none == controller.currentPanelType) return;
+  controller.updatePanelType(ChatBottomPanelType.none);
+}
+```
+
+### 自定义底部安全区高度
+
+在默认情况下，`chat_bottom_container` 会自动帮你添加底部安全区高度，但在一些场景下你可能不希望如此，那你可以通过将 `safeAreaBottom` 设置为 `0` 来自定义这个高度。
+
+```dart
+return ChatBottomPanelContainer<PanelType>(
+  ...
+  safeAreaBottom: 0,
+  ...
+);
+```
+
+### 调整键盘面板高度
+
+如示例中位于首页的聊天页面，需要减去外层底部固定的 `BottomNavigationBar` 高度
+
+```dart
+return ChatBottomPanelContainer<PanelType>(
+  ...
+  changeKeyboardPanelHeight: (keyboardHeight) {
+    final renderObj = bottomNavigationBarKey.currentContext?.findRenderObject();
+    if (renderObj is! RenderBox) return keyboardHeight;
+    return keyboardHeight - renderObj.size.height;
+  },
+  ...
+);
+```
+
+</details>
+
 ## 🖨 关于我
 
 - GitHub: [https://github.com/LinXunFeng](https://github.com/LinXunFeng)
