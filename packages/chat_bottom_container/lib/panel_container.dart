@@ -36,11 +36,13 @@ class ChatBottomPanelContainerController<T> {
   void updatePanelType(
     ChatBottomPanelType panelType, {
     T? data,
+    bool handleFocus = false,
   }) {
     this.data = data;
     _state?.updatePanelType(
       panelType,
-      isIgnoreFocusChange: true,
+      isIgnoreFocusListener: true,
+      handleFocus: handleFocus,
     );
   }
 }
@@ -92,7 +94,7 @@ class _ChatBottomPanelContainerState<T>
   ChatBottomPanelType lastPanelType = ChatBottomPanelType.none;
   ChatBottomPanelType panelType = ChatBottomPanelType.none;
 
-  bool isIgnoreFocusChange = false;
+  bool isIgnoreFocusListener = false;
 
   double currentNativeKeyboardHeight = 0;
 
@@ -112,7 +114,7 @@ class _ChatBottomPanelContainerState<T>
     );
 
     inputFocusNode.addListener(() {
-      if (isIgnoreFocusChange) return;
+      if (isIgnoreFocusListener) return;
       if (inputFocusNode.hasFocus) {
         updatePanelType(ChatBottomPanelType.keyboard);
       } else {
@@ -271,10 +273,14 @@ class _ChatBottomPanelContainerState<T>
   }
 
   /// Update the panel type.
-  /// [isIgnoreFocusChange] is used to ignore the focus change event.
+  ///
+  /// [isIgnoreFocusListener] is used to ignore the focus change event listener.
+  /// [handleFocus] is used to determine whether to handle the focus of the
+  /// input box in this method.
   updatePanelType(
     ChatBottomPanelType type, {
-    bool isIgnoreFocusChange = false,
+    bool isIgnoreFocusListener = false,
+    bool handleFocus = false,
   }) {
     bool? needUnFocus;
     switch (type) {
@@ -282,10 +288,10 @@ class _ChatBottomPanelContainerState<T>
         // The soft keyboard may hide, but the input box still has focus.
         break;
       case ChatBottomPanelType.keyboard:
-        needUnFocus = false;
+        needUnFocus = handleFocus ? false : null;
         break;
       case ChatBottomPanelType.other:
-        needUnFocus = true;
+        needUnFocus = handleFocus ? true : null;
         break;
     }
     lastPanelType = panelType;
@@ -295,7 +301,7 @@ class _ChatBottomPanelContainerState<T>
       panelType,
       widget.controller.data,
     );
-    this.isIgnoreFocusChange = isIgnoreFocusChange;
+    this.isIgnoreFocusListener = isIgnoreFocusListener;
     setState(() {});
     switch (needUnFocus) {
       case true:
@@ -309,7 +315,7 @@ class _ChatBottomPanelContainerState<T>
     }
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      this.isIgnoreFocusChange = false;
+      this.isIgnoreFocusListener = false;
     });
   }
 }
