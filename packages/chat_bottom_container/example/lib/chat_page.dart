@@ -21,6 +21,7 @@ class ChatPage extends StatefulWidget {
     this.safeAreaBottom,
     this.showAppBar = true,
     this.changeKeyboardPanelHeight,
+    this.onControllerCreated,
   });
 
   final double? safeAreaBottom;
@@ -28,6 +29,8 @@ class ChatPage extends StatefulWidget {
   final bool showAppBar;
 
   final ChatKeyboardChangeKeyboardPanelHeight? changeKeyboardPanelHeight;
+
+  final Function(ChatBottomPanelContainerController)? onControllerCreated;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -42,10 +45,19 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
 
   PanelType currentPanelType = PanelType.none;
 
+  bool readOnly = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     App.routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.onControllerCreated?.call(controller);
   }
 
   @override
@@ -117,6 +129,7 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         }
       },
       onPanelTypeChange: (panelType, data) {
+        debugPrint('panelType: $panelType');
         switch (panelType) {
           case ChatBottomPanelType.none:
             currentPanelType = PanelType.none;
@@ -175,20 +188,38 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
         children: [
           const SizedBox(width: 15),
           Expanded(
-            child: TextField(
-              focusNode: inputFocusNode,
+            child: Listener(
+              onPointerUp: (event) {
+                // Currently it may be emojiPanel.
+                if (readOnly) {
+                  updatePanelType(PanelType.keyboard);
+                }
+              },
+              child: TextField(
+                focusNode: inputFocusNode,
+                readOnly: readOnly,
+                showCursor: true,
+              ),
             ),
           ),
           GestureDetector(
             child: const Icon(Icons.emoji_emotions_outlined, size: 30),
             onTap: () {
-              updatePanelType(PanelType.emoji);
+              updatePanelType(
+                PanelType.emoji == currentPanelType
+                    ? PanelType.keyboard
+                    : PanelType.emoji,
+              );
             },
           ),
           GestureDetector(
             child: const Icon(Icons.add, size: 30),
             onTap: () {
-              updatePanelType(PanelType.tool);
+              updatePanelType(
+                PanelType.tool == currentPanelType
+                    ? PanelType.keyboard
+                    : PanelType.tool,
+              );
             },
           ),
           const SizedBox(width: 15),
@@ -197,12 +228,29 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     );
   }
 
-  updatePanelType(PanelType type) {
+  updatePanelType(PanelType type) async {
+    final isSwitchToKeyboard = PanelType.keyboard == type;
+    final isSwitchToEmojiPanel = PanelType.emoji == type;
+    switch (type) {
+      case PanelType.keyboard:
+        updateInputView(isReadOnly: false);
+        break;
+      case PanelType.emoji:
+        updateInputView(isReadOnly: true);
+        if (!inputFocusNode.hasFocus) {
+          inputFocusNode.requestFocus();
+        }
+        break;
+      default:
+        break;
+    }
+
     controller.updatePanelType(
-      type == currentPanelType
+      isSwitchToKeyboard
           ? ChatBottomPanelType.keyboard
           : ChatBottomPanelType.other,
       data: type,
+      handleFocus: !isSwitchToEmojiPanel,
     );
   }
 
@@ -210,7 +258,18 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     if (inputFocusNode.hasFocus) {
       inputFocusNode.unfocus();
     }
+    updateInputView(isReadOnly: false);
     if (ChatBottomPanelType.none == controller.currentPanelType) return;
     controller.updatePanelType(ChatBottomPanelType.none);
+  }
+
+  updateInputView({
+    required bool isReadOnly,
+  }) {
+    if (readOnly != isReadOnly) {
+      readOnly = isReadOnly;
+      // You can just refresh the input view.
+      setState(() {});
+    }
   }
 }

@@ -4,6 +4,7 @@
  * @Date: 2024-06-15 17:48:05
  */
 
+import 'package:chat_bottom_container/chat_bottom_container.dart';
 import 'package:chat_bottom_container_example/chat_page.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +40,8 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
 
   final bottomNavigationBarKey = GlobalKey();
+
+  ChatBottomPanelContainerController? controller;
 
   @override
   void initState() {
@@ -81,6 +84,9 @@ class _HomePageState extends State<HomePage>
                 bottomNavigationBarKey.currentContext?.findRenderObject();
             if (renderObj is! RenderBox) return keyboardHeight;
             return keyboardHeight - renderObj.size.height;
+          },
+          onControllerCreated: (controller) {
+            this.controller = controller;
           },
         ),
         Container(color: Colors.red),
