@@ -4,16 +4,11 @@
  * @Date: 2024-06-17 22:25:15
  */
 
+import 'package:chat_bottom_container/constans.dart';
 import 'package:chat_bottom_container/listener_manager.dart';
+import 'package:chat_bottom_container/typedef.dart';
 import 'package:flutter/material.dart';
-
-typedef ChatKeyboardChangeKeyboardPanelHeight = double Function(double);
-
-enum ChatBottomPanelType {
-  none,
-  keyboard,
-  other,
-}
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatBottomPanelContainerController<T> {
   _ChatBottomPanelContainerState? _state;
@@ -24,6 +19,10 @@ class ChatBottomPanelContainerController<T> {
   /// The current [ChatBottomPanelType].
   ChatBottomPanelType currentPanelType = ChatBottomPanelType.none;
 
+  /// The keyboard height.
+  /// This value may be 0 when the keyboard height has never been recorded.
+  double get keyboardHeight => _state?.currentNativeKeyboardHeight ?? 0;
+
   void _attachState(_ChatBottomPanelContainerState state) {
     _state = state;
   }
@@ -33,16 +32,22 @@ class ChatBottomPanelContainerController<T> {
   }
 
   /// Update the panel type.
+  ///
+  /// [data] is used to associate [ChatBottomPanelType.other] with the data of
+  /// the externally defined panel type.
+  ///
+  /// For other parameters, please go to
+  /// [_ChatBottomPanelContainerState.updatePanelType] to view the description.
   void updatePanelType(
     ChatBottomPanelType panelType, {
     T? data,
-    bool handleFocus = false,
+    ChatBottomHandleFocus forceHandleFocus = ChatBottomHandleFocus.none,
   }) {
     this.data = data;
     _state?.updatePanelType(
       panelType,
       isIgnoreFocusListener: true,
-      handleFocus: handleFocus,
+      forceHandleFocus: forceHandleFocus,
     );
   }
 }
@@ -96,17 +101,22 @@ class _ChatBottomPanelContainerState<T>
 
   bool isIgnoreFocusListener = false;
 
+  /// Record the height of the keyboard. It will only be updated when the
+  /// keyboard pops up and the height of the keyboard itself changes.
   double currentNativeKeyboardHeight = 0;
 
+  /// Determine whether the keyboard height changes due to the keyboard's own
+  /// function.
+  /// For example, the expansion and closing of the keyboard's own search box.
   bool isKeyboardHeightChangedByItself = false;
 
   FocusNode get inputFocusNode => widget.inputFocusNode;
 
   double safeAreaBottom = 0;
 
-  @override
-  void initState() {
-    super.initState();
+  Future<SharedPreferences> get preferences => SharedPreferences.getInstance();
+
+  void setup() async {
     safeAreaBottom = widget.safeAreaBottom ?? 0;
     widget.controller._attachState(this);
     chatKeyboardManagerId = ChatBottomContainerListenerManager().register(
@@ -121,6 +131,27 @@ class _ChatBottomPanelContainerState<T>
         updatePanelType(ChatBottomPanelType.none);
       }
     });
+
+    final pref = await preferences;
+    final keyboardHeight =
+        pref.getDouble(ChatBottomContainerPrefKey.keyboardHeight) ?? 0;
+    if (keyboardHeight > 0) {
+      currentNativeKeyboardHeight = keyboardHeight;
+    }
+  }
+
+  /// Record the height of the keyboard.
+  recordKeyboardHeight(double height) async {
+    if (height <= 0) return;
+    final pref = await preferences;
+    await pref.setDouble(ChatBottomContainerPrefKey.keyboardHeight, height);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setup();
   }
 
   @override
@@ -237,6 +268,7 @@ class _ChatBottomPanelContainerState<T>
     // Ignore it if the height change is not caused by the chat input box.
     // e.g. the form input boxes on the page.
     if (!widget.inputFocusNode.hasFocus) return;
+    if (ChatBottomPanelType.other == panelType) return;
 
     if (height == 0) {
       // Android
@@ -254,6 +286,8 @@ class _ChatBottomPanelContainerState<T>
 
     // The soft keyboard pops up.
     currentNativeKeyboardHeight = height;
+    // Record the height of the keyboard.
+    recordKeyboardHeight(currentNativeKeyboardHeight);
     switch (panelType) {
       case ChatBottomPanelType.none:
         // Switch to the keyboard panel.
@@ -275,23 +309,37 @@ class _ChatBottomPanelContainerState<T>
   /// Update the panel type.
   ///
   /// [isIgnoreFocusListener] is used to ignore the focus change event listener.
-  /// [handleFocus] is used to determine whether to handle the focus of the
-  /// input box in this method.
+  ///
+  /// [forceHandleFocus] is used to force focus handling. When you want the
+  /// input box to have focus and not pop up the system keyboard, you need to
+  /// set it to [ChatBottomHandleFocus.requestFocus]. In addition, you also need
+  /// to set the [TextField.readOnly] to true.
   updatePanelType(
     ChatBottomPanelType type, {
     bool isIgnoreFocusListener = false,
-    bool handleFocus = false,
+    ChatBottomHandleFocus forceHandleFocus = ChatBottomHandleFocus.none,
   }) {
-    bool? needUnFocus;
+    ChatBottomHandleFocus handleFocus = ChatBottomHandleFocus.none;
     switch (type) {
       case ChatBottomPanelType.none:
         // The soft keyboard may hide, but the input box still has focus.
         break;
       case ChatBottomPanelType.keyboard:
-        needUnFocus = handleFocus ? false : null;
+        handleFocus = ChatBottomHandleFocus.requestFocus;
         break;
       case ChatBottomPanelType.other:
-        needUnFocus = handleFocus ? true : null;
+        handleFocus = ChatBottomHandleFocus.unfocus;
+        break;
+    }
+    // Determine whether it need to force the focus to be handled.
+    switch (forceHandleFocus) {
+      case ChatBottomHandleFocus.none:
+        break;
+      case ChatBottomHandleFocus.requestFocus:
+        handleFocus = ChatBottomHandleFocus.requestFocus;
+        break;
+      case ChatBottomHandleFocus.unfocus:
+        handleFocus = ChatBottomHandleFocus.unfocus;
         break;
     }
     lastPanelType = panelType;
@@ -303,14 +351,14 @@ class _ChatBottomPanelContainerState<T>
     );
     this.isIgnoreFocusListener = isIgnoreFocusListener;
     setState(() {});
-    switch (needUnFocus) {
-      case true:
+    switch (handleFocus) {
+      case ChatBottomHandleFocus.unfocus:
         widget.inputFocusNode.unfocus();
         break;
-      case false:
+      case ChatBottomHandleFocus.requestFocus:
         widget.inputFocusNode.requestFocus();
         break;
-      case null:
+      case ChatBottomHandleFocus.none:
         break;
     }
 

@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  shared_preferences: ^2.2.1
 
 dev_dependencies:
   flutter_test:
