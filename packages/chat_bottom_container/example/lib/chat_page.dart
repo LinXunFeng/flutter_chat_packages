@@ -4,7 +4,7 @@
  * @Date: 2024-06-29 11:55:20
  */
 
-import 'package:chat_bottom_container/panel_container.dart';
+import 'package:chat_bottom_container/chat_bottom_container.dart';
 import 'package:chat_bottom_container_example/main.dart';
 import 'package:flutter/material.dart';
 
@@ -170,9 +170,21 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   }
 
   Widget _buildEmojiPickerPanel() {
+    // If the keyboard height has been recorded, priority is given to setting
+    // the height to the keyboard height.
+    double height = 300;
+    final keyboardHeight = controller.keyboardHeight;
+    if (keyboardHeight != 0) {
+      if (widget.changeKeyboardPanelHeight != null) {
+        height = widget.changeKeyboardPanelHeight!.call(keyboardHeight);
+      } else {
+        height = keyboardHeight;
+      }
+    }
+
     return Container(
       padding: EdgeInsets.zero,
-      height: 300,
+      height: height,
       color: Colors.blue[50],
       child: const Center(
         child: Text('Emoji Panel'),
@@ -231,27 +243,38 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   updatePanelType(PanelType type) async {
     final isSwitchToKeyboard = PanelType.keyboard == type;
     final isSwitchToEmojiPanel = PanelType.emoji == type;
+    bool isUpdated = false;
     switch (type) {
       case PanelType.keyboard:
         updateInputView(isReadOnly: false);
         break;
       case PanelType.emoji:
-        updateInputView(isReadOnly: true);
-        if (!inputFocusNode.hasFocus) {
-          inputFocusNode.requestFocus();
-        }
+        isUpdated = updateInputView(isReadOnly: true);
         break;
       default:
         break;
     }
 
-    controller.updatePanelType(
-      isSwitchToKeyboard
-          ? ChatBottomPanelType.keyboard
-          : ChatBottomPanelType.other,
-      data: type,
-      handleFocus: !isSwitchToEmojiPanel,
-    );
+    updatePanelTypeFunc() {
+      controller.updatePanelType(
+        isSwitchToKeyboard
+            ? ChatBottomPanelType.keyboard
+            : ChatBottomPanelType.other,
+        data: type,
+        forceHandleFocus: isSwitchToEmojiPanel
+            ? ChatBottomHandleFocus.requestFocus
+            : ChatBottomHandleFocus.none,
+      );
+    }
+
+    if (isUpdated) {
+      // Waiting for the input view to update.
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        updatePanelTypeFunc();
+      });
+    } else {
+      updatePanelTypeFunc();
+    }
   }
 
   hidePanel() {
@@ -263,13 +286,15 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
     controller.updatePanelType(ChatBottomPanelType.none);
   }
 
-  updateInputView({
+  bool updateInputView({
     required bool isReadOnly,
   }) {
     if (readOnly != isReadOnly) {
       readOnly = isReadOnly;
       // You can just refresh the input view.
       setState(() {});
+      return true;
     }
+    return false;
   }
 }
