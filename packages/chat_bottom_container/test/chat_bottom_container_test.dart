@@ -1,3 +1,9 @@
+/*
+ * @Author: LinXunFeng linxunfeng@yeah.net
+ * @Repo: https://github.com/LinXunFeng/flutter_chat_packages
+ * @Date: 2024-06-26 21:30:38
+ */
+
 import 'package:chat_bottom_container/chat_bottom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,7 +43,9 @@ void main() {
           ? ChatBottomPanelType.keyboard
           : ChatBottomPanelType.other,
       data: type,
-      handleFocus: PanelType.emoji == type,
+      forceHandleFocus: PanelType.emoji == type
+          ? ChatBottomHandleFocus.requestFocus
+          : ChatBottomHandleFocus.none,
     );
   }
 
