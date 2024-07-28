@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Support switching to other panel, the input box gets the focus and displays the cursor.
+* Record keyboard height to optimize user experience next time.
+
 ## 0.1.0
 
 * Adjust keyboard height listener manager logic.
