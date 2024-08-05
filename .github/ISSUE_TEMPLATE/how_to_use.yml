@@ -1,0 +1,32 @@
+name: How to use
+description: How to use the Flutter plugin.
+title: "[How to use] "
+assignees:
+  - LinXunFeng
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this issue!
+        You need read document before you ask question.
+        If you can, search the issue list
+        or [StackOverflow](https://stackoverflow.com/questions/tagged/flutter)
+        to see if someone has asked the same question.
+  - type: textarea
+    attributes:
+      label: Description
+      description: "Describe the feature you want to be added"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Code sample
+      description: "I want to know how to use the method."
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Try do it
+      description: "I have tried to do it, but I don't know how to do it."
+    validations:
+      required: false
