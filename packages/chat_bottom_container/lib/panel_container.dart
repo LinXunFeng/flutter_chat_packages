@@ -4,7 +4,7 @@
  * @Date: 2024-06-17 22:25:15
  */
 
-import 'package:chat_bottom_container/constans.dart';
+import 'package:chat_bottom_container/constants.dart';
 import 'package:chat_bottom_container/listener_manager.dart';
 import 'package:chat_bottom_container/typedef.dart';
 import 'package:flutter/material.dart';
