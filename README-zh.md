@@ -1,11 +1,9 @@
 # Flutter Chat Packages
 
-[![author](https://img.shields.io/badge/author-LinXunFeng-blue.svg?style=flat-square&logo=Iconify)](https://github.com/LinXunFeng/) [![author](https://img.shields.io/badge/author-GitLqr-blue.svg?style=flat-square&logo=Iconify)](https://github.com/GitLqr/) [![技术交流群](https://img.shields.io/static/v1?label=WeChat&message=技术交流群&style=flat-square&logo=WeChat&color=07C160)](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
+[![author](https://img.shields.io/badge/author-LinXunFeng-blue.svg?style=flat-square&logo=Iconify)](https://github.com/LinXunFeng/) [![author](https://img.shields.io/badge/author-GitLqr-blue.svg?style=flat-square&logo=Iconify)](https://github.com/GitLqr/) [![微信技术交流群](https://img.shields.io/static/v1?label=WeChat&message=微信技术交流群&style=flat-square&logo=WeChat&color=07C160)](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
 
 
 Language: 中文 | [English](https://github.com/LinXunFeng/flutter_chat_packages)
-
-Chat: [微信技术交流群](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
 
 ## ☕ Support me
 

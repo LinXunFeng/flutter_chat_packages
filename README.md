@@ -4,8 +4,6 @@
 
 Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages/blob/main/README-zh.md)
 
-Chat: [Join WeChat group](https://mp.weixin.qq.com/s/JBbMstn0qW6M71hh-BRKzw)
-
 ## ☕ Support me
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T4JKVRP)
