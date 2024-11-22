@@ -54,7 +54,7 @@ android {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
         // implementation fileTree(dir: "flatDir", include: ["*.aar"])
-        implementation "com.github.LinXunFeng:flutter_chat_bottom_container_aar:0.0.1"
+        implementation "com.github.LinXunFeng:flutter_chat_bottom_container_aar:0.0.2"
     }
 
     testOptions {

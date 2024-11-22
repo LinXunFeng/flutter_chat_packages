@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Avoid conflicts with flutter engine's view event listener on Android.
+
 ## 0.2.0
 
 * Support switching to other panel, the input box gets the focus and displays the cursor.
