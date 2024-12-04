@@ -1,6 +1,6 @@
 name: chat_bottom_container
 description: "A Flutter package for managing the bottom container of the chat page"
-version: 0.2.1
+version: 0.3.0
 repository: https://github.com/LinXunFeng/flutter_chat_packages/tree/main/packages/chat_bottom_container
 issue_tracker: https://github.com/LinXunFeng/flutter_chat_packages/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+chat_bottom_container%22
 
