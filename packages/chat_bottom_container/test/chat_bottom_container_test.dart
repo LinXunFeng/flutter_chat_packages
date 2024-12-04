@@ -22,6 +22,7 @@ void main() {
   bool readOnly = false;
   int onPanelTypeChangeCallCount = 0;
   Function(void Function())? pageSetState;
+  double? safeAreaBottom;
 
   setUp(() {
     inputFocusNode = FocusNode();
@@ -29,6 +30,7 @@ void main() {
     currentPanelType = PanelType.none;
     readOnly = false;
     onPanelTypeChangeCallCount = 0;
+    safeAreaBottom = null;
   });
 
   tearDown(() {
@@ -134,8 +136,8 @@ void main() {
             break;
         }
       },
+      safeAreaBottom: safeAreaBottom,
       // changeKeyboardPanelHeight: widget.changeKeyboardPanelHeight,
-      // safeAreaBottom: widget.safeAreaBottom,
     );
   }
 
@@ -300,5 +302,17 @@ void main() {
     );
     expect(inputFocusNode.hasFocus, isFalse);
     expect(readOnly, isFalse);
+  });
+
+  testWidgets('test safeAreaBottom', (tester) async {
+    safeAreaBottom = null;
+    await tester.pumpWidget(buildPage());
+    expect(controller.safeAreaBottom, 0);
+
+    await tester.pumpWidget(const Placeholder());
+
+    safeAreaBottom = 10;
+    await tester.pumpWidget(buildPage());
+    expect(controller.safeAreaBottom, 10);
   });
 }

@@ -23,6 +23,9 @@ class ChatBottomPanelContainerController<T> {
   /// This value may be 0 when the keyboard height has never been recorded.
   double get keyboardHeight => _state?.currentNativeKeyboardHeight ?? 0;
 
+  /// The bottom height of the safe area.
+  double get safeAreaBottom => _state?.safeAreaBottom ?? 0;
+
   void _attachState(_ChatBottomPanelContainerState state) {
     _state = state;
   }
