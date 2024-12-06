@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage>
 
   final bottomNavigationBarKey = GlobalKey();
 
+  var _keepPanel = false;
   ChatBottomPanelContainerController? controller;
 
   @override
@@ -78,6 +79,7 @@ class _HomePageState extends State<HomePage>
         ChatPage(
           safeAreaBottom: 0,
           showAppBar: false,
+          keepPanel: _keepPanel,
           changeKeyboardPanelHeight: (keyboardHeight) {
             // Here we need to subtract the height of BottomNavigationBar.
             final renderObj =
@@ -140,8 +142,11 @@ class _HomePageState extends State<HomePage>
         const SizedBox(height: 10),
         _buildFloatingBtn(
           icon: Icons.keyboard_arrow_up_sharp,
-          onPressed: () {
-            showModalBottomSheet(
+          onPressed: () async {
+            if (_keepPanel) {
+              controller?.keepChatPanel();
+            }
+            await showModalBottomSheet(
               context: context,
               isScrollControlled: true,
               builder: (context) {
@@ -151,6 +156,18 @@ class _HomePageState extends State<HomePage>
                 );
               },
             );
+            if (_keepPanel) {
+              controller?.restoreChatPanel();
+            }
+          },
+        ),
+        const SizedBox(height: 10),
+        _buildFloatingBtn(
+          icon: _keepPanel ? Icons.keyboard : Icons.crop_landscape,
+          onPressed: () {
+            setState(() {
+              _keepPanel = !_keepPanel;
+            });
           },
         ),
       ],
