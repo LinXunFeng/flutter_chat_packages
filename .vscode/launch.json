@@ -1,0 +1,48 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "chat_bottom_container",
+      "cwd": "packages/chat_bottom_container",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "chat_bottom_container (profile mode)",
+      "cwd": "packages/chat_bottom_container",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "chat_bottom_container (release mode)",
+      "cwd": "packages/chat_bottom_container",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "example",
+      "cwd": "packages/chat_bottom_container/example",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "example (profile mode)",
+      "cwd": "packages/chat_bottom_container/example",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "example (release mode)",
+      "cwd": "packages/chat_bottom_container/example",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}

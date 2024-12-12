@@ -1,3 +1,7 @@
+## 0.3.0
+
+ - **FEAT**(chat_bottom_container): add safeAreaBottom to ChatBottomPanelContainerController.
+
 ## 0.2.1
 
 * Avoid conflicts with flutter engine's view event listener on Android.

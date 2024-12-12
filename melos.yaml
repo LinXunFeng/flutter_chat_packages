@@ -1,0 +1,24 @@
+name: chat_packages
+
+packages:
+  - packages/**
+
+scripts:
+  analyze:
+    description: Analyze all packages
+    exec: dart analyze --fatal-infos
+  format:
+    description: Format check all packages
+    exec: dart format --set-exit-if-changed .
+  format:fix:
+    description: Format all packages
+    exec: dart format .
+  publish-dry-run:
+    description: Publish dry-run all packages
+    exec: dart pub publish --dry-run
+    packageFilters:
+      noPrivate: true
+
+command:
+  bootstrap:
+    runPubGetInParallel: false

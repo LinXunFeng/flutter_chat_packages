@@ -19,6 +19,11 @@ The WeChat payment QR codes of the two core authors, thank you for your support!
 |-|-|
 |<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20220417121922/image/202303181116760.jpeg"/>|<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172130257.jpg"/>|
 
+## 📖 Article
+
+- [Flutter - Smooth switching between chat keyboard and panel](https://medium.com/@linxunfeng/flutter-smooth-switching-between-chat-keyboard-and-panel-8b921d5f52a8) | [WeChat](https://mp.weixin.qq.com/s/FC67AhlVQlYRvj3a5VcyHQ) | [JueJin](https://juejin.cn/post/7383258697470476338)
+- [Flutter - A powerful upgrade for smooth switching between chat keyboard and panel](https://medium.com/@linxunfeng/flutter-a-powerful-upgrade-for-smooth-switching-between-chat-keyboard-and-panel-08ebb2f5e57a) | [WeChat](https://mp.weixin.qq.com/s/fy5lUi1qeaZlZXcdF66OxQ) | [JueJin](https://juejin.cn/post/7399045497002328102)
+
 ## 🎀 Support
 - iOS
 - Android

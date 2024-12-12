@@ -18,6 +18,11 @@ Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages
 |-|-|
 |<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20220417121922/image/202303181116760.jpeg"/>|<img height="272" width="200" src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172130257.jpg"/>|
 
+## 📖 文章
+
+- [Flutter - 实现聊天键盘与功能面板的丝滑切换 🍻](https://mp.weixin.qq.com/s/FC67AhlVQlYRvj3a5VcyHQ) | [备用链接](https://juejin.cn/post/7383258697470476338)
+- [Flutter - 聊天键盘与面板丝滑切换的强势升级 🍻](https://mp.weixin.qq.com/s/fy5lUi1qeaZlZXcdF66OxQ) | [备用链接](https://juejin.cn/post/7399045497002328102)
+
 ## 🎀 支持
 - iOS
 - Android
