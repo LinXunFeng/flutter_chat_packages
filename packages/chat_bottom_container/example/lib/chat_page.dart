@@ -22,6 +22,7 @@ class ChatPage extends StatefulWidget {
     this.showAppBar = true,
     this.changeKeyboardPanelHeight,
     this.onControllerCreated,
+    this.keepPanel = false,
   });
 
   final double? safeAreaBottom;
@@ -31,6 +32,8 @@ class ChatPage extends StatefulWidget {
   final ChatKeyboardChangeKeyboardPanelHeight? changeKeyboardPanelHeight;
 
   final Function(ChatBottomPanelContainerController)? onControllerCreated;
+
+  final bool keepPanel;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -70,7 +73,9 @@ class _ChatPageState extends State<ChatPage> with RouteAware {
   @override
   void didPushNext() {
     super.didPushNext();
-    hidePanel();
+    if (!widget.keepPanel) {
+      hidePanel();
+    }
   }
 
   @override

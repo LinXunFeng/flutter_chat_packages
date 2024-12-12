@@ -53,6 +53,18 @@ class ChatBottomPanelContainerController<T> {
       forceHandleFocus: forceHandleFocus,
     );
   }
+
+  void restoreChatPanel() {
+    _state?.updatePanelType(
+      _state?.panelType ?? ChatBottomPanelType.none,
+      isIgnoreFocusListener: true,
+      forceHandleFocus: _state?.handleFocus ?? ChatBottomHandleFocus.none,
+    );
+  }
+
+  void keepChatPanel() {
+    _state?.disableFocusListener();
+  }
 }
 
 class ChatBottomPanelContainer<T> extends StatefulWidget {
@@ -102,6 +114,7 @@ class _ChatBottomPanelContainerState<T>
   ChatBottomPanelType lastPanelType = ChatBottomPanelType.none;
   ChatBottomPanelType panelType = ChatBottomPanelType.none;
 
+  ChatBottomHandleFocus handleFocus = ChatBottomHandleFocus.none;
   bool isIgnoreFocusListener = false;
 
   /// Record the height of the keyboard. It will only be updated when the
@@ -141,6 +154,10 @@ class _ChatBottomPanelContainerState<T>
     if (keyboardHeight > 0) {
       currentNativeKeyboardHeight = keyboardHeight;
     }
+  }
+
+  disableFocusListener() {
+    isIgnoreFocusListener = true;
   }
 
   /// Record the height of the keyboard.
@@ -322,7 +339,7 @@ class _ChatBottomPanelContainerState<T>
     bool isIgnoreFocusListener = false,
     ChatBottomHandleFocus forceHandleFocus = ChatBottomHandleFocus.none,
   }) {
-    ChatBottomHandleFocus handleFocus = ChatBottomHandleFocus.none;
+    handleFocus = ChatBottomHandleFocus.none;
     switch (type) {
       case ChatBottomPanelType.none:
         // The soft keyboard may hide, but the input box still has focus.
