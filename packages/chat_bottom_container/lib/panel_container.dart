@@ -126,14 +126,7 @@ class _ChatBottomPanelContainerState<T>
       onKeyboardHeightChange,
     );
 
-    inputFocusNode.addListener(() {
-      if (isIgnoreFocusListener) return;
-      if (inputFocusNode.hasFocus) {
-        updatePanelType(ChatBottomPanelType.keyboard);
-      } else {
-        updatePanelType(ChatBottomPanelType.none);
-      }
-    });
+    inputFocusNode.addListener(inputFocusNodeListener);
 
     final pref = await preferences;
     final keyboardHeight =
@@ -150,6 +143,16 @@ class _ChatBottomPanelContainerState<T>
     await pref.setDouble(ChatBottomContainerPrefKey.keyboardHeight, height);
   }
 
+  /// The listener of the input focus node.
+  void inputFocusNodeListener() {
+    if (isIgnoreFocusListener) return;
+    if (inputFocusNode.hasFocus) {
+      updatePanelType(ChatBottomPanelType.keyboard);
+    } else {
+      updatePanelType(ChatBottomPanelType.none);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -162,6 +165,17 @@ class _ChatBottomPanelContainerState<T>
     widget.controller._detachState();
     ChatBottomContainerListenerManager().unregister(chatKeyboardManagerId);
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant ChatBottomPanelContainer<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // The input focus node has changed.
+    if (widget.inputFocusNode != oldWidget.inputFocusNode) {
+      oldWidget.inputFocusNode.removeListener(inputFocusNodeListener);
+      inputFocusNode.addListener(inputFocusNodeListener);
+    }
   }
 
   @override
