@@ -315,4 +315,64 @@ void main() {
     await tester.pumpWidget(buildPage());
     expect(controller.safeAreaBottom, 10);
   });
+
+  testWidgets('test inputFocusNode switching', (tester) async {
+    Widget chatWidget(FocusNode focusNode) {
+      Widget resultWidget = Column(
+        children: [
+          TextField(
+            focusNode: focusNode,
+          ),
+          ChatBottomPanelContainer<PanelType>(
+            controller: controller,
+            inputFocusNode: focusNode,
+            otherPanelWidget: (type) => const SizedBox.shrink(),
+          ),
+        ],
+      );
+      resultWidget = Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: resultWidget,
+      );
+      resultWidget = MaterialApp(
+        home: resultWidget,
+      );
+      return resultWidget;
+    }
+
+    // Create initial inputFocusNode
+    final initialFocusNode = FocusNode();
+
+    // Build initial page
+    await tester.pumpWidget(
+      chatWidget(initialFocusNode),
+    );
+
+    // Verify initial state
+    expect(controller.currentPanelType, ChatBottomPanelType.none);
+    expect(initialFocusNode.hasFocus, isFalse);
+
+    // Create new inputFocusNode
+    final newFocusNode = FocusNode();
+
+    // Update page with new inputFocusNode
+    await tester.pumpWidget(
+      chatWidget(newFocusNode),
+    );
+
+    // Verify new state
+    expect(controller.currentPanelType, ChatBottomPanelType.none);
+    expect(newFocusNode.hasFocus, isFalse);
+
+    // Test focus change of new inputFocusNode
+    newFocusNode.requestFocus();
+    await tester.pumpAndSettle();
+    expect(controller.currentPanelType, ChatBottomPanelType.keyboard);
+    expect(newFocusNode.hasFocus, isTrue);
+    expect(initialFocusNode.hasFocus, isFalse);
+
+    // Cleanup
+    initialFocusNode.dispose();
+    newFocusNode.dispose();
+  });
 }
