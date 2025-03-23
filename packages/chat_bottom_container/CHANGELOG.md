@@ -1,3 +1,7 @@
+## 0.3.1
+
+ - **FEAT**(chat_bottom_container): allow switching focusNode.
+
 ## 0.3.0
 
  - **FEAT**(chat_bottom_container): add safeAreaBottom to ChatBottomPanelContainerController.
