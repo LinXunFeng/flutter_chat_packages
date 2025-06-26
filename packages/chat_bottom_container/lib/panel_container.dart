@@ -164,6 +164,7 @@ class _ChatBottomPanelContainerState<T>
   void dispose() {
     widget.controller._detachState();
     ChatBottomContainerListenerManager().unregister(chatKeyboardManagerId);
+    inputFocusNode.removeListener(inputFocusNodeListener);
     super.dispose();
   }
 

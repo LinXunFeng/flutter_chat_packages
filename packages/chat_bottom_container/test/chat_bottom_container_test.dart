@@ -16,7 +16,7 @@ enum PanelType {
 }
 
 void main() {
-  late FocusNode inputFocusNode;
+  late SpyFocusNode inputFocusNode;
   late ChatBottomPanelContainerController<PanelType> controller;
   late PanelType currentPanelType;
   bool readOnly = false;
@@ -25,7 +25,7 @@ void main() {
   double? safeAreaBottom;
 
   setUp(() {
-    inputFocusNode = FocusNode();
+    inputFocusNode = SpyFocusNode();
     controller = ChatBottomPanelContainerController();
     currentPanelType = PanelType.none;
     readOnly = false;
@@ -375,4 +375,21 @@ void main() {
     initialFocusNode.dispose();
     newFocusNode.dispose();
   });
+
+  // Regression test for https://github.com/LinXunFeng/flutter_chat_packages/issues/23.
+  testWidgets(
+      'should remove listeners from inputFocusNode when ChatBottomPanelContainer is disposed',
+      (tester) async {
+    expect(inputFocusNode.hasListeners, isFalse);
+    await tester.pumpWidget(buildPage());
+    expect(inputFocusNode.hasListeners, isTrue);
+    await tester.pumpWidget(const Placeholder());
+    expect(inputFocusNode.hasListeners, isFalse);
+  });
+}
+
+class SpyFocusNode extends FocusNode {
+  /// Override for test visibility only.
+  @override
+  bool get hasListeners => super.hasListeners;
 }
