@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-06-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`chat_bottom_container` - `v0.3.2`](#chat_bottom_container---v032)
+
+---
+
+#### `chat_bottom_container` - `v0.3.2`
+
+ - **FIX**(chat_bottom_container): remove listeners from inputFocusNode when ChatBottomPanelContainer is disposed.
+
+
 ## 2025-03-23
 
 ### Changes

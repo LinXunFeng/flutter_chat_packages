@@ -1,3 +1,7 @@
+## 0.3.2
+
+ - **FIX**(chat_bottom_container): remove listeners from inputFocusNode when ChatBottomPanelContainer is disposed.
+
 ## 0.3.1
 
  - **FEAT**(chat_bottom_container): allow switching focusNode.
