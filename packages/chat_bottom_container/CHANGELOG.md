@@ -1,3 +1,8 @@
+## 0.4.0
+
+ - **FEAT**(chat_bottom_container): allow custom panel container.
+ - **DOCS**(chat_bottom_container): README.
+
 ## 0.3.2
 
  - **FIX**(chat_bottom_container): remove listeners from inputFocusNode when ChatBottomPanelContainer is disposed.
