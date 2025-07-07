@@ -26,6 +26,12 @@ class ChatBottomPanelContainerController<T> {
   /// The bottom height of the safe area.
   double get safeAreaBottom => _state?.safeAreaBottom ?? 0;
 
+  /// Determine whether the keyboard height changes due to the keyboard's own
+  /// function.
+  /// For example, the expansion and closing of the keyboard's own search box.
+  bool get isKeyboardHeightChangedByItself =>
+      _state?.isKeyboardHeightChangedByItself ?? false;
+
   void _attachState(_ChatBottomPanelContainerState state) {
     _state = state;
   }
@@ -53,6 +59,18 @@ class ChatBottomPanelContainerController<T> {
       forceHandleFocus: forceHandleFocus,
     );
   }
+
+  /// Build build-in panel.
+  Widget? buildInPanel(ChatBottomPanelType panelType) {
+    switch (panelType) {
+      case ChatBottomPanelType.none:
+        return _state?.buildSafeArea.call();
+      case ChatBottomPanelType.keyboard:
+        return _state?.buildKeyboardPlaceholderPanel.call();
+      case ChatBottomPanelType.other:
+        return _state?.buildOtherPanel.call();
+    }
+  }
 }
 
 class ChatBottomPanelContainer<T> extends StatefulWidget {
@@ -60,12 +78,14 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
     super.key,
     required this.controller,
     required this.inputFocusNode,
-    required this.otherPanelWidget,
+    this.otherPanelWidget,
     this.onPanelTypeChange,
     this.panelBgColor = Colors.white,
     this.safeAreaBottom,
     this.changeKeyboardPanelHeight,
-  });
+    this.customPanelContainer,
+  }) : assert(otherPanelWidget != null || customPanelContainer != null,
+            'otherPanelWidget and customPanelContainer cannot both be null.');
 
   /// The controller of [ChatBottomPanelContainer].
   final ChatBottomPanelContainerController<T> controller;
@@ -74,12 +94,14 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
   final FocusNode inputFocusNode;
 
   /// The widget of the other panel.
-  final Widget Function(T? data) otherPanelWidget;
+  final Widget Function(T? data)? otherPanelWidget;
 
   /// The callback when the panel type changes.
   final void Function(ChatBottomPanelType, T? data)? onPanelTypeChange;
 
   /// The background color of the panel container.
+  ///
+  /// If [customPanelContainer] is not null, this property will be ignored.
   final Color panelBgColor;
 
   /// The bottom height of the safe area.
@@ -89,6 +111,9 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
 
   /// The callback to change the height of the keyboard panel.
   final ChatKeyboardChangeKeyboardPanelHeight? changeKeyboardPanelHeight;
+
+  /// The callback to custom panel container.
+  final ChatBottomCustomPanelContainer<T>? customPanelContainer;
 
   @override
   State<ChatBottomPanelContainer> createState() =>
@@ -202,6 +227,20 @@ class _ChatBottomPanelContainerState<T>
   }
 
   Widget _buildPanelContainer() {
+    // Custom panel container
+    if (widget.customPanelContainer != null) {
+      Widget resultWidget = widget.customPanelContainer!.call(
+        panelType,
+        widget.controller.data,
+      );
+      return resultWidget;
+    }
+
+    // Default panel container
+    return _buildDefaultPanelContainer();
+  }
+
+  Widget _buildDefaultPanelContainer() {
     // When the keyboard height changes due to the keyboard's internal
     // functions, the animation duration should be shorter.
     final duration = isKeyboardHeightChangedByItself
@@ -225,16 +264,17 @@ class _ChatBottomPanelContainerState<T>
     Widget resultWidget;
     switch (panelType) {
       case ChatBottomPanelType.other:
-        resultWidget = _buildOtherPanel();
+        resultWidget = buildOtherPanel();
       case ChatBottomPanelType.keyboard:
-        resultWidget = _buildKeyboardPlaceholderPanel();
+        resultWidget = buildKeyboardPlaceholderPanel();
       case ChatBottomPanelType.none:
-        resultWidget = _buildSafeArea();
+        resultWidget = buildSafeArea();
     }
     return resultWidget;
   }
 
-  Widget _buildSafeArea() {
+  /// Build the safe area.
+  Widget buildSafeArea() {
     return Builder(
       builder: (context) {
         return SizedBox(
@@ -245,11 +285,14 @@ class _ChatBottomPanelContainerState<T>
     );
   }
 
-  Widget _buildOtherPanel() {
-    return widget.otherPanelWidget.call(widget.controller.data);
+  /// Build the other panel.
+  Widget buildOtherPanel() {
+    return widget.otherPanelWidget?.call(widget.controller.data) ??
+        const SizedBox.shrink();
   }
 
-  Widget _buildKeyboardPlaceholderPanel() {
+  /// Build the keyboard placeholder panel.
+  Widget buildKeyboardPlaceholderPanel() {
     return Builder(
       builder: (context) {
         final isSwitchToKeyboardFromOtherPanelType =

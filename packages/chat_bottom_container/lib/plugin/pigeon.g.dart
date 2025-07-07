@@ -25,6 +25,7 @@ class FSAChatBottomContainerHostApi {
   /// BinaryMessenger will be used which routes to the host platform.
   FSAChatBottomContainerHostApi({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
+  // ignore: unused_field
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec =
