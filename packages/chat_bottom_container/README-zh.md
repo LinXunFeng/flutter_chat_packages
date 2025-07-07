@@ -203,6 +203,31 @@ return ChatBottomPanelContainer<PanelType>(
 
 </details>
 
+### 动画
+
+通过 `customPanelContainer` 回调可自定义底部容器，进而自定义动画效果，这里简单展示一部分
+
+|Fade|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072319859.gif)|
+
+
+|Cube|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072320480.gif)|
+
+|Concentric|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321326.gif)|
+
+|Rotation|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321811.gif)|
+
+|ZoomIn|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321995.gif)|
+
 ## 🖨 关于我
 
 - GitHub: [https://github.com/LinXunFeng](https://github.com/LinXunFeng)

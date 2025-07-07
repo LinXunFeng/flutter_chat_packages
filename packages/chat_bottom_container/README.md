@@ -205,6 +205,31 @@ return ChatBottomPanelContainer<PanelType>(
 
 </details>
 
+### Animation effect
+
+You can customize the animation effect by using the `customPanelContainer`. Here are some examples:
+
+|Fade|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072319859.gif)|
+
+
+|Cube|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072320480.gif)|
+
+|Concentric|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321326.gif)|
+
+|Rotation|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321811.gif)|
+
+|ZoomIn|
+|-|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321995.gif)|
+
 ## 🖨 About Me
 
 - GitHub: [https://github.com/LinXunFeng](https://github.com/LinXunFeng)
