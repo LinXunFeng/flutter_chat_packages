@@ -29,6 +29,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
+  go_router: ^15.0.0
+
+  get: ^4.7.2
+  getx_helper: ^0.0.1
+
+  animated_size_and_fade: ^5.1.1
+  animated_switcher_transitions: ^1.0.0
+  animated_switcher_plus: ^1.1.1
+  transitioned_indexed_stack: ^1.0.2
+  cube_transition_plus: ^2.0.1
+  concentric_transition: ^1.0.3
+
 dev_dependencies:
   integration_test:
     sdk: flutter
