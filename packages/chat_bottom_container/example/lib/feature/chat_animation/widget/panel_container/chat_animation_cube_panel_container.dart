@@ -60,6 +60,7 @@ class _ChatAnimationCubePanelContainerState
 
   Widget _buildBody() {
     Widget resultWidget = Stack(
+      clipBehavior: Clip.none,
       children: [
         // Placeholder
         logic.buildPanelWidget(
