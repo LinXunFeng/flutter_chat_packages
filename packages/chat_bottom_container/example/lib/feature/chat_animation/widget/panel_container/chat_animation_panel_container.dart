@@ -40,6 +40,13 @@ class _ChatAnimationPanelContainerState
       inputFocusNode: state.inputFocusNode,
       onPanelTypeChange: logic.onPanelTypeChange,
       panelBgColor: const Color(0xFFF5F5F5),
+      otherPanelWidget: ChatAnimationType.normal != state.animationType
+          ? null
+          : (type) {
+              return type == null
+                  ? const SizedBox.shrink()
+                  : logic.buildPanelWidget(type);
+            },
       customPanelContainer: ChatAnimationType.normal == state.animationType
           ? null
           : (panelType, data) {
