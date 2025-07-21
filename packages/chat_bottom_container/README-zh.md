@@ -22,6 +22,7 @@ Language: English | [中文](https://github.com/LinXunFeng/flutter_chat_packages
 
 - [Flutter - 实现聊天键盘与功能面板的丝滑切换 🍻](https://mp.weixin.qq.com/s/FC67AhlVQlYRvj3a5VcyHQ) | [备用链接](https://juejin.cn/post/7383258697470476338)
 - [Flutter - 聊天键盘与面板丝滑切换的强势升级 🍻](https://mp.weixin.qq.com/s/fy5lUi1qeaZlZXcdF66OxQ) | [备用链接](https://juejin.cn/post/7399045497002328102)
+- [Flutter - 聊天面板库动画生硬？这次让你丝滑个够](https://mp.weixin.qq.com/s/qznzJ1qXuugmsv4T7StXrQ) | [备用链接](https://juejin.cn/post/7528436312073830446)
 
 ## 🎀 支持
 - iOS
@@ -214,11 +215,11 @@ return ChatBottomPanelContainer<PanelType>(
 
 |Cube|
 |-|
-|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072320480.gif)|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507201505875.gif)|
 
 |Concentric|
 |-|
-|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321326.gif)|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507201505207.gif)|
 
 |Rotation|
 |-|

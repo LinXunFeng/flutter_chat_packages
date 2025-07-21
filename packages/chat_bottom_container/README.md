@@ -23,6 +23,7 @@ The WeChat payment QR codes of the two core authors, thank you for your support!
 
 - [Flutter - Smooth switching between chat keyboard and panel](https://medium.com/@linxunfeng/flutter-smooth-switching-between-chat-keyboard-and-panel-8b921d5f52a8) | [WeChat](https://mp.weixin.qq.com/s/FC67AhlVQlYRvj3a5VcyHQ) | [JueJin](https://juejin.cn/post/7383258697470476338)
 - [Flutter - A powerful upgrade for smooth switching between chat keyboard and panel](https://medium.com/@linxunfeng/flutter-a-powerful-upgrade-for-smooth-switching-between-chat-keyboard-and-panel-08ebb2f5e57a) | [WeChat](https://mp.weixin.qq.com/s/fy5lUi1qeaZlZXcdF66OxQ) | [JueJin](https://juejin.cn/post/7399045497002328102)
+- [Flutter - Stiff Animation in chat_bottom_container? Let’s Make It Silky-Smooth This Time](https://medium.com/@linxunfeng/flutter-how-to-customize-animations-in-chat-bottom-container-251b0d97a067) | [WeChat](https://mp.weixin.qq.com/s/qznzJ1qXuugmsv4T7StXrQ) | [JueJin](https://juejin.cn/post/7528436312073830446)
 
 ## 🎀 Support
 - iOS
@@ -216,11 +217,11 @@ You can customize the animation effect by using the `customPanelContainer`. Here
 
 |Cube|
 |-|
-|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072320480.gif)|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507201505875.gif)|
 
 |Concentric|
 |-|
-|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507072321326.gif)|
+|![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202507201505207.gif)|
 
 |Rotation|
 |-|
