@@ -31,6 +31,7 @@ class ChatAnimationPageState extends State<ChatAnimationPage>
   Widget buildBody(BuildContext context) {
     return GetBuilder<ChatAnimationLogic>(
       tag: logicTag,
+      assignId: true,
       builder: (_) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
