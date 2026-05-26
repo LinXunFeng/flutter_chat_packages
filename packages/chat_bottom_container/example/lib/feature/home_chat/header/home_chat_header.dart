@@ -18,4 +18,9 @@ enum HomeChatFloatingItemType {
   pushChatPage,
   showModalBottomSheetChatPage,
   showModalBottomSheetCommentPage,
+  switchSafeAreaBottom,
+}
+
+enum HomeChatUpdateType {
+  safeAreaBottom,
 }

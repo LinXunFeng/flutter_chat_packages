@@ -23,4 +23,5 @@ enum ChatPanelType {
 
 enum ChatUpdateType {
   inputView,
+  panelContainer,
 }

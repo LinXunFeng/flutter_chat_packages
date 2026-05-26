@@ -48,7 +48,13 @@ class HomeChatPageState extends State<HomeChatPage>
   Widget _buildBody() {
     return Stack(
       children: [
-        _buildChatView(),
+        GetBuilder<HomeChatLogic>(
+          tag: logicTag,
+          id: HomeChatUpdateType.safeAreaBottom,
+          builder: (_) {
+            return _buildChatView();
+          },
+        ),
         const Positioned(
           top: 150,
           right: 10,
@@ -60,7 +66,7 @@ class HomeChatPageState extends State<HomeChatPage>
 
   Widget _buildChatView() {
     return ChatPage(
-      safeAreaBottom: 0,
+      safeAreaBottom: state.safeAreaBottom,
       changeKeyboardPanelHeight: (keyboardHeight) {
         // Here we need to subtract the height of BottomNavigationBar.
         final renderObj = state

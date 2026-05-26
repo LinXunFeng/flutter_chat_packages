@@ -46,6 +46,4 @@ class ChatAnimationState {
 
   List<ChatAnimationTransitionedIndexedStackType> indexedStackTransitionTypes =
       ChatAnimationTransitionedIndexedStackType.values;
-
-
 }

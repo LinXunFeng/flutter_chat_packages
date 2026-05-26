@@ -41,6 +41,10 @@ extension HomeChatLogicFloatingView on HomeChatLogic {
           },
         );
         break;
+      case HomeChatFloatingItemType.switchSafeAreaBottom:
+        state.safeAreaBottom = state.safeAreaBottom == 0 ? 20 : 0;
+        update([HomeChatUpdateType.safeAreaBottom]);
+        break;
     }
   }
 }

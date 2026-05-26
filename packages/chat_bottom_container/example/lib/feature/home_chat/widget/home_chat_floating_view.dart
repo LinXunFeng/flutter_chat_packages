@@ -35,6 +35,11 @@ class _HomeChatFloatingViewState extends State<HomeChatFloatingView>
           type: HomeChatFloatingItemType.showModalBottomSheetCommentPage,
           icon: Icons.comment,
         ),
+        const SizedBox(height: 10),
+        _buildFloatingBtn(
+          type: HomeChatFloatingItemType.switchSafeAreaBottom,
+          icon: Icons.border_bottom_rounded,
+        ),
       ],
     );
     return resultWidget;

@@ -48,6 +48,17 @@ class ChatPageState extends State<ChatPage>
   }
 
   @override
+  void didUpdateWidget(covariant ChatPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.safeAreaBottom != oldWidget.safeAreaBottom) {
+      logic.update([
+        ChatUpdateType.panelContainer,
+      ]);
+    }
+  }
+
+  @override
   void dispose() {
     state.inputFocusNode.dispose();
     MyRoute.observer.unsubscribe(this);

@@ -14,4 +14,7 @@ class HomeChatState {
   late HomeLogic homeLogic;
 
   ChatBottomPanelContainerController? controller;
+
+  /// Safe area bottom value.
+  double safeAreaBottom = 0;
 }
