@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`chat_bottom_container` - `v0.4.1`](#chat_bottom_container---v041)
+
+---
+
+#### `chat_bottom_container` - `v0.4.1`
+
+ - **FIX**(chat_bottom_container): support dynamic update of safeAreaBottom.
+ - **DOCS**(chat_bottom_container): README.
+
+
 ## 2025-07-07
 
 ### Changes

@@ -1,3 +1,8 @@
+## 0.4.1
+
+ - **FIX**(chat_bottom_container): support dynamic update of safeAreaBottom.
+ - **DOCS**(chat_bottom_container): README.
+
 ## 0.4.0
 
  - **FEAT**(chat_bottom_container): allow custom panel container.
