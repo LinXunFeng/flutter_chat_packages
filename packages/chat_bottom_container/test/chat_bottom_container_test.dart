@@ -309,11 +309,23 @@ void main() {
     await tester.pumpWidget(buildPage());
     expect(controller.safeAreaBottom, 0);
 
-    await tester.pumpWidget(const Placeholder());
-
+    // Dynamic update safeAreaBottom to 10
     safeAreaBottom = 10;
-    await tester.pumpWidget(buildPage());
+    pageSetState?.call(() {});
+    await tester.pumpAndSettle();
     expect(controller.safeAreaBottom, 10);
+
+    // Dynamic update safeAreaBottom to 20
+    safeAreaBottom = 20;
+    pageSetState?.call(() {});
+    await tester.pumpAndSettle();
+    expect(controller.safeAreaBottom, 20);
+
+    // Dynamic update safeAreaBottom to null
+    safeAreaBottom = null;
+    pageSetState?.call(() {});
+    await tester.pumpAndSettle();
+    expect(controller.safeAreaBottom, 0);
   });
 
   testWidgets('test inputFocusNode switching', (tester) async {

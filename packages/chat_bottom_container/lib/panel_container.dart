@@ -202,6 +202,11 @@ class _ChatBottomPanelContainerState<T>
       oldWidget.inputFocusNode.removeListener(inputFocusNodeListener);
       inputFocusNode.addListener(inputFocusNodeListener);
     }
+
+    // The safe area bottom has changed.
+    if (widget.safeAreaBottom != oldWidget.safeAreaBottom) {
+      safeAreaBottom = widget.safeAreaBottom ?? 0;
+    }
   }
 
   @override
