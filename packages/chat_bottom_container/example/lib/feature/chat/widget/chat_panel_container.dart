@@ -61,7 +61,7 @@ class _ChatPanelContainerState extends State<ChatPanelContainer>
 
   Widget _buildToolPanel() {
     return Container(
-      height: 450,
+      height: 250,
       color: Colors.red[50],
       child: const Center(
         child: Text('Tool Panel'),
@@ -72,7 +72,7 @@ class _ChatPanelContainerState extends State<ChatPanelContainer>
   Widget _buildEmojiPickerPanel() {
     // If the keyboard height has been recorded, priority is given to setting
     // the height to the keyboard height.
-    double height = 300;
+    double height = 200;
     final keyboardHeight = state.controller.keyboardHeight;
     if (keyboardHeight != 0) {
       if (pageWidget.changeKeyboardPanelHeight != null) {
