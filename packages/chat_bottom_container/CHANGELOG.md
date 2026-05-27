@@ -1,3 +1,7 @@
+## 0.5.0
+
+ - **FEAT**(chat_bottom_container): support orientation-specific keyboard height tracking.
+
 ## 0.4.1
 
  - **FIX**(chat_bottom_container): support dynamic update of safeAreaBottom.

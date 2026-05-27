@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-05-28
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`chat_bottom_container` - `v0.5.0`](#chat_bottom_container---v050)
+
+---
+
+#### `chat_bottom_container` - `v0.5.0`
+
+ - **FEAT**(chat_bottom_container): support orientation-specific keyboard height tracking.
+
+
 ## 2026-05-26
 
 ### Changes
