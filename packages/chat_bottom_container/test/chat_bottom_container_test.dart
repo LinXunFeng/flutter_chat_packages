@@ -5,8 +5,11 @@
  */
 
 import 'package:chat_bottom_container/chat_bottom_container.dart';
+import 'package:chat_bottom_container/constants.dart';
+import 'package:chat_bottom_container/listener_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum PanelType {
   none,
@@ -397,6 +400,68 @@ void main() {
     expect(inputFocusNode.hasListeners, isTrue);
     await tester.pumpWidget(const Placeholder());
     expect(inputFocusNode.hasListeners, isFalse);
+  });
+
+  testWidgets('test keyboard height orientation tracking', (tester) async {
+    // Mock initial preference values
+    SharedPreferences.setMockInitialValues({
+      ChatBottomContainerPrefKey.keyboardHeightPortrait: 120.0,
+      ChatBottomContainerPrefKey.keyboardHeightLandscape: 200.0,
+    });
+
+    // Set to portrait
+    tester.view.physicalSize = const Size(400, 800);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(buildPage());
+
+    // In portrait orientation, it should read keyboardHeightPortrait (120)
+    expect(controller.keyboardHeight, 120.0);
+
+    // Let's change orientation to landscape
+    tester.view.physicalSize = const Size(800, 400);
+    await tester.pumpAndSettle();
+
+    // In landscape orientation, it should read keyboardHeightLandscape (200)
+    expect(controller.keyboardHeight, 200.0);
+
+    // Focus input so onKeyboardHeightChange callback can process keyboard height
+    inputFocusNode.requestFocus();
+    await tester.pumpAndSettle();
+
+    // Trigger keyboard height change in landscape
+    ChatBottomContainerListenerManager().flutterApi.keyboardHeight(250.0);
+    await tester.pumpAndSettle();
+    expect(controller.keyboardHeight, 250.0);
+
+    // Change orientation back to portrait
+    tester.view.physicalSize = const Size(400, 800);
+    await tester.pumpAndSettle();
+
+    // Should return portrait keyboard height (which is still 120)
+    expect(controller.keyboardHeight, 120.0);
+
+    // Trigger keyboard height change in portrait
+    ChatBottomContainerListenerManager().flutterApi.keyboardHeight(150.0);
+    await tester.pumpAndSettle();
+    expect(controller.keyboardHeight, 150.0);
+
+    // Verify stored values in SharedPreferences
+    final pref = await SharedPreferences.getInstance();
+    expect(
+      pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightPortrait),
+      150.0,
+    );
+    expect(
+      pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightLandscape),
+      250.0,
+    );
+    expect(
+      pref.getDouble(ChatBottomContainerPrefKey.keyboardHeight),
+      150.0,
+    );
   });
 }
 

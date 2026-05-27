@@ -19,8 +19,9 @@ class ChatBottomPanelContainerController<T> {
   /// The current [ChatBottomPanelType].
   ChatBottomPanelType currentPanelType = ChatBottomPanelType.none;
 
-  /// The keyboard height.
-  /// This value may be 0 when the keyboard height has never been recorded.
+  /// The keyboard height (dynamic height under current orientation).
+  /// This value may be 0 when the keyboard height has never been recorded
+  /// under the current orientation.
   double get keyboardHeight => _state?.currentNativeKeyboardHeight ?? 0;
 
   /// The bottom height of the safe area.
@@ -129,9 +130,22 @@ class _ChatBottomPanelContainerState<T>
 
   bool isIgnoreFocusListener = false;
 
+  /// Record the height of the keyboard for portrait orientation.
+  double currentNativeKeyboardHeightPortrait = 0;
+
+  /// Record the height of the keyboard for landscape orientation.
+  double currentNativeKeyboardHeightLandscape = 0;
+
   /// Record the height of the keyboard. It will only be updated when the
   /// keyboard pops up and the height of the keyboard itself changes.
-  double currentNativeKeyboardHeight = 0;
+  double get currentNativeKeyboardHeight {
+    if (!mounted) return 0;
+    final isPortrait =
+        MediaQuery.orientationOf(context) == Orientation.portrait;
+    return isPortrait
+        ? currentNativeKeyboardHeightPortrait
+        : currentNativeKeyboardHeightLandscape;
+  }
 
   /// Determine whether the keyboard height changes due to the keyboard's own
   /// function.
@@ -154,18 +168,29 @@ class _ChatBottomPanelContainerState<T>
     inputFocusNode.addListener(inputFocusNodeListener);
 
     final pref = await preferences;
-    final keyboardHeight =
-        pref.getDouble(ChatBottomContainerPrefKey.keyboardHeight) ?? 0;
-    if (keyboardHeight > 0) {
-      currentNativeKeyboardHeight = keyboardHeight;
+    final portraitHeight =
+        pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightPortrait) ?? 0;
+    final landscapeHeight =
+        pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightLandscape) ?? 0;
+    if (portraitHeight > 0) {
+      currentNativeKeyboardHeightPortrait = portraitHeight;
+    }
+    if (landscapeHeight > 0) {
+      currentNativeKeyboardHeightLandscape = landscapeHeight;
     }
   }
 
   /// Record the height of the keyboard.
   recordKeyboardHeight(double height) async {
     if (height <= 0) return;
+    final isPortrait =
+        MediaQuery.orientationOf(context) == Orientation.portrait;
     final pref = await preferences;
     await pref.setDouble(ChatBottomContainerPrefKey.keyboardHeight, height);
+    final key = isPortrait
+        ? ChatBottomContainerPrefKey.keyboardHeightPortrait
+        : ChatBottomContainerPrefKey.keyboardHeightLandscape;
+    await pref.setDouble(key, height);
   }
 
   /// The listener of the input focus node.
@@ -351,9 +376,15 @@ class _ChatBottomPanelContainerState<T>
     }
 
     // The soft keyboard pops up.
-    currentNativeKeyboardHeight = height;
+    final isPortrait =
+        MediaQuery.orientationOf(context) == Orientation.portrait;
+    if (isPortrait) {
+      currentNativeKeyboardHeightPortrait = height;
+    } else {
+      currentNativeKeyboardHeightLandscape = height;
+    }
     // Record the height of the keyboard.
-    recordKeyboardHeight(currentNativeKeyboardHeight);
+    recordKeyboardHeight(height);
     switch (panelType) {
       case ChatBottomPanelType.none:
         // Switch to the keyboard panel.
