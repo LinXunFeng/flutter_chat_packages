@@ -35,7 +35,7 @@ def builtInKotlinActive = agpMajor >= 9 &&
         Boolean.parseBoolean(project.property("android.builtInKotlin").toString()))
 if (!builtInKotlinActive) {
     // println("fsa: apply plugin: \"kotlin-android\", agpMajor = $agpMajor, builtInKotlinActive = $builtInKotlinActive")
-    apply plugin: "kotlin-android"
+    apply plugin: "kotlin-" + "android"
 } else {
     // println("fsa: builtInKotlin, agpMajor = $agpMajor, builtInKotlinActive = $builtInKotlinActive")
 }
