@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-07-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`chat_bottom_container` - `v0.5.1`](#chat_bottom_container---v051)
+
+---
+
+#### `chat_bottom_container` - `v0.5.1`
+
+ - **FIX**(chat_bottom_container): bypass Flutter KGP static regex check via dynamic string concatenation.
+ - **FIX**(chat_bottom_container): Android plugin compatibility with AGP9 built-in Kotlin.
+
+
 ## 2026-05-28
 
 ### Changes

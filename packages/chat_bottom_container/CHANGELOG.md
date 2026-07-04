@@ -1,3 +1,8 @@
+## 0.5.1
+
+ - **FIX**(chat_bottom_container): bypass Flutter KGP static regex check via dynamic string concatenation.
+ - **FIX**(chat_bottom_container): Android plugin compatibility with AGP9 built-in Kotlin.
+
 ## 0.5.0
 
  - **FEAT**(chat_bottom_container): support orientation-specific keyboard height tracking.
