@@ -1,3 +1,7 @@
+## 0.5.2
+
+ - **FEAT**(chat_bottom_container): support Swift Package Manager for iOS (#40).
+
 ## 0.5.1
 
  - **FIX**(chat_bottom_container): bypass Flutter KGP static regex check via dynamic string concatenation.
