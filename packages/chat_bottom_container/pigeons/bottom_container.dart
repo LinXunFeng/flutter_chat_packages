@@ -9,7 +9,8 @@ import 'package:pigeon/pigeon.dart';
     // https://github.com/fluttercommunity/wakelock_plus/issues/18
     errorClassName: "FSAChatBottomContainerFlutterError",
   ),
-  swiftOut: 'ios/Classes/FSAChatBottomContainerGeneratedApis.g.swift',
+  swiftOut:
+      'ios/chat_bottom_container/Sources/chat_bottom_container/FSAChatBottomContainerGeneratedApis.g.swift',
 ))
 @HostApi()
 abstract class FSAChatBottomContainerHostApi {}

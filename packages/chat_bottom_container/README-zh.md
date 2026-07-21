@@ -56,6 +56,13 @@ allprojects {
 }
 ```
 
+### 🍎 iOS
+
+iOS 端 `chat_bottom_container` 同时支持 **CocoaPods** 和 **Swift Package Manager (SPM)**。
+
+- **CocoaPods**：开箱即用，无需额外配置。
+- **Swift Package Manager**：需要 **Flutter 3.44 及以上版本**。从 Flutter 3.44 起 SPM 默认开启；更低版本（3.24–3.43 虽可手动开启 SPM）请继续使用 CocoaPods —— SPM 集成依赖 `FlutterFramework`，该依赖仅在 Flutter 3.44+ 中存在。
+
 ## 🚀 使用
 
 ![](https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource20230813121546/image/202406172255393.gif)
