@@ -13,10 +13,10 @@ A new Flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'chat_bottom_container/Sources/chat_bottom_container/**/*.swift'
   s.vendored_frameworks = 'Frameworks/FSAChatBottomContainer.xcframework'
   s.dependency 'Flutter'
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '13.0'
   s.prepare_command = <<-CMD
     VERSION="0.0.1"
     IOS_FRAMEWORK_PATH=Frameworks
