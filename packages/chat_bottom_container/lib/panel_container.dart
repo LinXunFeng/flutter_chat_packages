@@ -298,7 +298,8 @@ class _ChatBottomPanelContainerState<T>
     );
     return Container(
       color: widget.panelBgColor,
-      child: resultWidget,
+      // 键盘已经逐帧更新 viewInsets，不再叠加第二段补间动画。
+      child: followsKeyboard ? fetchPanel() : resultWidget,
     );
   }
 
