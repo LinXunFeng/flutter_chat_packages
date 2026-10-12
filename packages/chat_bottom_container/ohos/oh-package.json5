@@ -4,5 +4,7 @@
   "description": "聊天底部面板的鸿蒙键盘事件适配",
   "main": "index.ets",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {
+    "@ohos/flutter_ohos": "file:./har/flutter.har"
+  }
 }

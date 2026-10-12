@@ -8,6 +8,8 @@ Android、iOS 保留原有实现，三个平台共用 Dart 面板控制器。
 使用支持 OHOS 的 Flutter SDK，并通过 Git 或本地 path 依赖本 fork 的
 `packages/chat_bottom_container`。宿主应用还需要选择支持 OHOS 的
 `shared_preferences` 实现；本插件不会覆盖宿主的依赖配置。
+鸿蒙模块已声明 `@ohos/flutter_ohos`，其 `har/flutter.har` 由宿主 Flutter
+工具链提供，避免完整应用采用严格依赖解析时找不到原生接口。
 
 页面设置 `resizeToAvoidBottomInset: false`。输入栏下方放置
 `ChatBottomPanelContainer`，让控制器统一管理键盘、表情、工具面板的切换和焦点。
@@ -41,8 +43,10 @@ flutter analyze lib test/ohos_keyboard_test.dart
 ```
 
 本次使用 Flutter `3.44.9-ohos-0.0.1-canary1` 和 HarmonyOS API 26 工具链，
-在独立 Flutter OHOS 工程中验证了 ArkTS 编译、自动插件注册和未签名 HAP 生成。
-尚未完成鸿蒙真机键盘动画验收。
+在独立 Flutter OHOS 工程和完整宿主应用中验证了 ArkTS 编译、自动插件注册，
+并完成完整宿主应用的签名 HAP 生成。
+当前真机安装被宿主签名配置阻塞：调试证书过期，正式签名包侧载返回
+`9568322`（应用来源不受信任）。尚未完成鸿蒙真机键盘动画验收。
 
 真机需检查：首次表情面板切回键盘、连续快速互切、系统返回收键盘、
 不同输入法高度、横竖屏、三键导航、多次进入退出页面，以及发送后继续输入。
