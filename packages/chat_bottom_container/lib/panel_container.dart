@@ -4,6 +4,8 @@
  * @Date: 2024-06-17 22:25:15
  */
 
+import 'dart:math' as math;
+
 import 'package:chat_bottom_container/constants.dart';
 import 'package:chat_bottom_container/listener_manager.dart';
 import 'package:chat_bottom_container/typedef.dart';
@@ -85,8 +87,12 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
     this.safeAreaBottom,
     this.changeKeyboardPanelHeight,
     this.customPanelContainer,
+    this.defaultKeyboardHeight = 300,
   }) : assert(otherPanelWidget != null || customPanelContainer != null,
             'otherPanelWidget and customPanelContainer cannot both be null.');
+
+  /// 第一次打开面板、还没有键盘高度记录时使用的高度。
+  final double defaultKeyboardHeight;
 
   /// The controller of [ChatBottomPanelContainer].
   final ChatBottomPanelContainerController<T> controller;
@@ -129,6 +135,7 @@ class _ChatBottomPanelContainerState<T>
   ChatBottomPanelType panelType = ChatBottomPanelType.none;
 
   bool isIgnoreFocusListener = false;
+  bool isHidingKeyboard = false;
 
   /// Record the height of the keyboard for portrait orientation.
   double currentNativeKeyboardHeightPortrait = 0;
@@ -168,16 +175,18 @@ class _ChatBottomPanelContainerState<T>
     inputFocusNode.addListener(inputFocusNodeListener);
 
     final pref = await preferences;
+    if (!mounted) return;
     final portraitHeight =
         pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightPortrait) ?? 0;
     final landscapeHeight =
         pref.getDouble(ChatBottomContainerPrefKey.keyboardHeightLandscape) ?? 0;
-    if (portraitHeight > 0) {
+    if (portraitHeight > 0 && currentNativeKeyboardHeightPortrait == 0) {
       currentNativeKeyboardHeightPortrait = portraitHeight;
     }
-    if (landscapeHeight > 0) {
+    if (landscapeHeight > 0 && currentNativeKeyboardHeightLandscape == 0) {
       currentNativeKeyboardHeightLandscape = landscapeHeight;
     }
+    setState(() {});
   }
 
   /// Record the height of the keyboard.
@@ -247,7 +256,7 @@ class _ChatBottomPanelContainerState<T>
               safeAreaBottom: (value) async {
                 safeAreaBottom = value;
                 await WidgetsBinding.instance.endOfFrame;
-                setState(() {});
+                if (mounted) setState(() {});
               },
             ),
           ),
@@ -273,9 +282,13 @@ class _ChatBottomPanelContainerState<T>
   Widget _buildDefaultPanelContainer() {
     // When the keyboard height changes due to the keyboard's internal
     // functions, the animation duration should be shorter.
-    final duration = isKeyboardHeightChangedByItself
-        ? const Duration(milliseconds: 50)
-        : const Duration(milliseconds: 200);
+    final followsKeyboard =
+        panelType == ChatBottomPanelType.keyboard || isHidingKeyboard;
+    final duration = followsKeyboard
+        ? Duration.zero
+        : isKeyboardHeightChangedByItself
+            ? const Duration(milliseconds: 50)
+            : const Duration(milliseconds: 200);
     const curve = Curves.linear;
     Widget resultWidget = AnimatedSize(
       alignment: Alignment.topCenter,
@@ -307,9 +320,13 @@ class _ChatBottomPanelContainerState<T>
   Widget buildSafeArea() {
     return Builder(
       builder: (context) {
+        final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
+        if (keyboardInset == 0) isHidingKeyboard = false;
         return SizedBox(
           width: double.infinity,
-          height: safeAreaBottom,
+          height: isHidingKeyboard
+              ? math.max(safeAreaBottom, keyboardInset)
+              : safeAreaBottom,
         );
       },
     );
@@ -334,9 +351,12 @@ class _ChatBottomPanelContainerState<T>
           // When switching to the keyboard from other panel. The height of
           // keyboard container should be fixed in order to achieve a smooth
           // switching effect.
-          height = currentNativeKeyboardHeight == 0
-              ? MediaQuery.viewInsetsOf(context).bottom
-              : currentNativeKeyboardHeight;
+          height = math.max(
+            currentNativeKeyboardHeight > 0
+                ? currentNativeKeyboardHeight
+                : widget.defaultKeyboardHeight,
+            MediaQuery.viewInsetsOf(context).bottom,
+          );
         } else {
           // Follow the keyboard pop up from the bottom.
           height = MediaQuery.viewInsetsOf(context).bottom;
@@ -439,7 +459,12 @@ class _ChatBottomPanelContainerState<T>
         handleFocus = ChatBottomHandleFocus.unfocus;
         break;
     }
-    lastPanelType = panelType;
+    // 重复请求键盘时仍保留“来自面板”的占位，避免中途塌陷。
+    if (panelType != type) {
+      isHidingKeyboard = type == ChatBottomPanelType.none &&
+          panelType == ChatBottomPanelType.keyboard;
+      lastPanelType = panelType;
+    }
     panelType = type;
     widget.controller.currentPanelType = panelType;
     widget.onPanelTypeChange?.call(
