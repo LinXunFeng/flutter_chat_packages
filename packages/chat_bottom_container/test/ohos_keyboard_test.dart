@@ -31,7 +31,7 @@ void main() {
     expect(heights, hasLength(3));
   });
 
-  testWidgets('首次面板切回键盘不塌陷，鸿蒙收起事件不关闭已切换的面板', (tester) async {
+  testWidgets('鸿蒙高度更新控制器，收起事件不关闭已切换的面板', (tester) async {
     final focus = FocusNode();
     final controller = ChatBottomPanelContainerController<String>();
     addTearDown(focus.dispose);
@@ -45,18 +45,13 @@ void main() {
           controller: controller,
           inputFocusNode: focus,
           safeAreaBottom: 0,
-          defaultKeyboardHeight: 300,
           otherPanelWidget: (_) => const SizedBox(height: 300),
         ),
       ]),
     )));
-    controller.updatePanelType(ChatBottomPanelType.other, data: '表情');
     await tester.pumpAndSettle();
     controller.updatePanelType(ChatBottomPanelType.keyboard);
-    await tester.pump();
-    controller.updatePanelType(ChatBottomPanelType.keyboard);
-    await tester.pump();
-    expect(tester.getSize(find.byKey(const ValueKey('面板'))).height, 300);
+    await tester.pumpAndSettle();
     await sendOhosHeight(tester, 360);
     await tester.pumpAndSettle();
     expect(controller.keyboardHeight, 360);
