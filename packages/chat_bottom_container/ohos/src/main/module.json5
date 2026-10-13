@@ -1,0 +1,7 @@
+{
+  "module": {
+    "name": "chat_bottom_container",
+    "type": "har",
+    "deviceTypes": ["default", "tablet", "2in1"]
+  }
+}

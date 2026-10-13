@@ -245,3 +245,7 @@ return ChatBottomPanelContainer<PanelType>(
   - 掘金: [https://juejin.cn/user/1820446984512392](https://juejin.cn/user/1820446984512392) 
 
 <img height="267.5" width="481.5" src="https://github.com/LinXunFeng/LinXunFeng/raw/master/static/img/FSAQR.png"/>
+
+## 鸿蒙版本
+
+本 fork 新增 OHOS 原生适配，接入方法与验证范围见 [鸿蒙适配说明](OHOS.md)。

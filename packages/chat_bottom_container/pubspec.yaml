@@ -42,6 +42,8 @@ flutter:
         pluginClass: ChatBottomContainerPlugin
       ios:
         pluginClass: ChatBottomContainerPlugin
+      ohos:
+        pluginClass: ChatBottomContainerPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

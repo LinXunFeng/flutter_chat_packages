@@ -1,3 +1,8 @@
+## 未发布
+
+- 新增 OpenHarmony / HarmonyOS 原生键盘高度监听和插件注册。
+- 补充鸿蒙高度通道接入、测试及说明，复用现有 Dart 面板逻辑。
+
 ## 0.5.2
 
  - **FEAT**(chat_bottom_container): support Swift Package Manager for iOS (#40).
