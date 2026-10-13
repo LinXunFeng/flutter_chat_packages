@@ -247,3 +247,10 @@ You can customize the animation effect by using the `customPanelContainer`. Here
   - 掘金: [https://juejin.cn/user/1820446984512392](https://juejin.cn/user/1820446984512392) 
 
 <img height="267.5" width="481.5" src="https://github.com/LinXunFeng/LinXunFeng/raw/master/static/img/FSAQR.png"/>
+
+## OpenHarmony / HarmonyOS
+
+Use an OHOS-enabled Flutter SDK and run `flutter pub add chat_bottom_container`
+to install a published release that includes OHOS support. The host app also
+needs an OHOS-compatible `shared_preferences` implementation. See the
+[OHOS integration guide](OHOS.md) for setup and verification details.

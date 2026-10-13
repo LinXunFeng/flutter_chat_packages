@@ -2,6 +2,7 @@ import { window } from '@kit.ArkUI';
 import {
   AbilityAware,
   AbilityPluginBinding,
+  FlutterManager,
   FlutterPlugin,
   FlutterPluginBinding,
   Log,
@@ -51,7 +52,9 @@ export default class ChatBottomContainerPlugin implements FlutterPlugin, Ability
     const attachment = this.attachment;
     this.connecting = true;
     try {
-      const mainWindow = await window.getLastWindow(binding.getAbility().context);
+      const windowStage = FlutterManager.getInstance().getWindowStage(binding.getAbility());
+      if (!windowStage) return;
+      const mainWindow = await windowStage.getMainWindow();
       // 等待窗口期间可能已经退出页面或切换到另一个 Ability。
       if (attachment !== this.attachment || this.abilityBinding !== binding) return;
       mainWindow.on('keyboardHeightChange', this.keyboardHeightChanged);

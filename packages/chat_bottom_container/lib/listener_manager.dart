@@ -6,9 +6,8 @@
 
 import 'dart:math';
 
-import 'package:flutter/services.dart';
-
 import 'package:chat_bottom_container/plugin/pigeon.g.dart';
+import 'package:flutter/services.dart';
 
 typedef ChatKeyboardOnKeyboardHeightChange = Function(double);
 
