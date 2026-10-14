@@ -245,3 +245,9 @@ return ChatBottomPanelContainer<PanelType>(
   - 掘金: [https://juejin.cn/user/1820446984512392](https://juejin.cn/user/1820446984512392) 
 
 <img height="267.5" width="481.5" src="https://github.com/LinXunFeng/LinXunFeng/raw/master/static/img/FSAQR.png"/>
+
+## 鸿蒙支持
+
+使用支持 OHOS 的 Flutter SDK，并通过 `flutter pub add chat_bottom_container`
+添加包含鸿蒙支持的已发布版本。宿主还需接入支持 OHOS 的 `shared_preferences`
+实现。接入方法、原生模块版本及验证范围见 [鸿蒙适配说明](OHOS.md)。

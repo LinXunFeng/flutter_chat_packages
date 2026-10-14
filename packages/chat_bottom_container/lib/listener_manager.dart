@@ -7,6 +7,7 @@
 import 'dart:math';
 
 import 'package:chat_bottom_container/plugin/pigeon.g.dart';
+import 'package:flutter/services.dart';
 
 typedef ChatKeyboardOnKeyboardHeightChange = Function(double);
 
@@ -40,6 +41,15 @@ class ChatBottomContainerListenerManager {
       },
     );
     FSAChatBottomContainerFlutterApi.setup(flutterApi);
+    // 鸿蒙的整数高度可能被编码为 int，统一转为 double 后复用面板逻辑。
+    const MethodChannel('chat_bottom_container/ohos')
+        .setMethodCallHandler((call) async {
+      if (call.method != 'keyboardHeight') return;
+      final height = call.arguments;
+      if (height is num && height.isFinite && height >= 0) {
+        flutterApi.keyboardHeight(height.toDouble());
+      }
+    });
   }
 
   String register(

@@ -1,0 +1,11 @@
+{
+  "name": "chat_bottom_container",
+  // OHPM/HAR 模块元数据；发布时需与 pubspec.yaml 的版本同步更新。
+  "version": "0.5.2",
+  "description": "聊天底部面板的鸿蒙键盘事件适配",
+  "main": "index.ets",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@ohos/flutter_ohos": "file:./har/flutter.har"
+  }
+}
