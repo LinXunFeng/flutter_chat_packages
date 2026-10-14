@@ -1,6 +1,6 @@
 {
   "name": "chat_bottom_container",
-  // OHPM/HAR 模块元数据；发布时需与 pubspec.yaml 的版本同步更新。
+  // 由 melos version 的 preCommit 钩子同步为 pubspec.yaml 的版本，无需手动修改。
   "version": "0.5.2",
   "description": "聊天底部面板的鸿蒙键盘事件适配",
   "main": "index.ets",

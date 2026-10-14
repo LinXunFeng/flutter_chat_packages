@@ -22,3 +22,11 @@ scripts:
 command:
   bootstrap:
     runPubGetInParallel: false
+  version:
+    hooks:
+      # The OHOS module version is not bumped by melos; sync it from pubspec.yaml and stage it into the version commit.
+      preCommit: |
+        v=$(sed -n 's/^version: *//p' packages/chat_bottom_container/pubspec.yaml)
+        f=packages/chat_bottom_container/ohos/oh-package.json5
+        perl -pi -e "s/\"version\": \"[^\"]*\"/\"version\": \"$v\"/" "$f"
+        git add "$f"
