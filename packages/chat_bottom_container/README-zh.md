@@ -66,7 +66,7 @@ iOS 端 `chat_bottom_container` 同时支持 **CocoaPods** 和 **Swift Package M
 
 ### 🔷 OpenHarmony / HarmonyOS
 
-需要使用支持 OHOS 的 Flutter SDK，宿主还需接入支持 OHOS 的 `shared_preferences` 实现。详见 [鸿蒙适配说明](docs/OHOS.md)。
+需要使用支持 OHOS 的 Flutter SDK，宿主还需接入支持 OHOS 的 `shared_preferences` 实现。详见 [鸿蒙适配说明](doc/OHOS.md)。
 
 ## 🚀 使用
 

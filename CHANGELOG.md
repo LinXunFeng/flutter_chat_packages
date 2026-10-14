@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-10-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`chat_bottom_container` - `v0.5.3`](#chat_bottom_container---v053)
+
+---
+
+#### `chat_bottom_container` - `v0.5.3`
+
+ - **FEAT**(chat_bottom_container): 增加鸿蒙原生平台支持 (#42).
+ - **DOCS**(chat_bottom_container): tidy OHOS docs and sync ohos module version on release (#43).
+
+
 ## 2026-07-22
 
 ### Changes

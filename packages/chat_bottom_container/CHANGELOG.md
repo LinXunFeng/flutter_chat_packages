@@ -1,3 +1,8 @@
+## 0.5.3
+
+ - **FEAT**(chat_bottom_container): 增加鸿蒙原生平台支持 (#42).
+ - **DOCS**(chat_bottom_container): tidy OHOS docs and sync ohos module version on release (#43).
+
 ## 0.5.2
 
  - **FEAT**(chat_bottom_container): support Swift Package Manager for iOS (#40).

@@ -68,7 +68,7 @@ allprojects {
 
 ### 🔷 OpenHarmony / HarmonyOS
 
-Requires an OHOS-enabled Flutter SDK. The host app also needs an OHOS-compatible `shared_preferences` implementation. See the [OHOS integration guide](docs/OHOS.md) for details.
+Requires an OHOS-enabled Flutter SDK. The host app also needs an OHOS-compatible `shared_preferences` implementation. See the [OHOS integration guide](doc/OHOS.md) for details.
 
 ## 🚀 Usage
 

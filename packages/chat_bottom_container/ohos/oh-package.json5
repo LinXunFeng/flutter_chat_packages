@@ -1,7 +1,7 @@
 {
   "name": "chat_bottom_container",
   // 由 melos version 的 preCommit 钩子同步为 pubspec.yaml 的版本，无需手动修改。
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "聊天底部面板的鸿蒙键盘事件适配",
   "main": "index.ets",
   "license": "Apache-2.0",
