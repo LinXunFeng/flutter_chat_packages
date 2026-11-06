@@ -1,3 +1,7 @@
+## 0.5.4
+
+ - **REFACTOR**(chat_bottom_container): drop material dependency and update example for Flutter 3.47 (#45).
+
 ## 0.5.3
 
  - **FEAT**(chat_bottom_container): 增加鸿蒙原生平台支持 (#42).
