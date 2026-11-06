@@ -7,7 +7,7 @@
 import 'package:chat_bottom_container/constants.dart';
 import 'package:chat_bottom_container/listener_manager.dart';
 import 'package:chat_bottom_container/typedef.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatBottomPanelContainerController<T> {
@@ -81,7 +81,7 @@ class ChatBottomPanelContainer<T> extends StatefulWidget {
     required this.inputFocusNode,
     this.otherPanelWidget,
     this.onPanelTypeChange,
-    this.panelBgColor = Colors.white,
+    this.panelBgColor = const Color(0xFFFFFFFF),
     this.safeAreaBottom,
     this.changeKeyboardPanelHeight,
     this.customPanelContainer,

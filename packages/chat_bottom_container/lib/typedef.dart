@@ -4,7 +4,7 @@
  * @Date: 2024-07-28 15:07:37
  */
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 typedef ChatKeyboardChangeKeyboardPanelHeight = double Function(double);
 
